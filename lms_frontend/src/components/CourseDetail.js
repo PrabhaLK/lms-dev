@@ -36,7 +36,7 @@ function CourseDetail() {
 
                     <li className="list-group-item ">Introduction to Java
                         <span className="float-end">
-                            <span className="me-3">1:30 Minutes</span>
+                            <span className="me-3">1 hour 30  Minutes</span>
                             <button className="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#videoModal1">
                                 <i className="bi-youtube"></i></button>
                         </span>
