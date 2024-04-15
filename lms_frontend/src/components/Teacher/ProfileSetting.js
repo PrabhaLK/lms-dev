@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 // import MyCourses from "./MyCourses";
-import Sidebar from "./Sidebar";
+import Sidebar from "./TeacherSidebar";
 function ProfileSetting() {
     return (
         <div className="container mt-4">

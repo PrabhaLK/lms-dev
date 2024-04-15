@@ -2,7 +2,7 @@ import Home from './Home';
 import Header from './Header';
 import Footer from './Footer';
 
-import About from './About us';
+import About from './About us'; 
 import CourseDetail from './CourseDetail';
 
 import Login from './User/Login';
@@ -13,6 +13,10 @@ import FavouriteCourses from './User/FavouriteCourses';
 import RecomendedCourses from './User/RecomendedCourses';
 import ProfileSetting from './User/ProfileSetting';
 import ChangePassword from './User/ChangePassword';
+
+import TeacherLogin from './Teacher/TeacherLogin';
+import TeacherRegister from './Teacher/TeacherRegister';
+import TeacherDashboard from './Teacher/TeacherDashboard';
 
 import {Routes as Switch,Route} from 'react-router-dom'
 
@@ -32,6 +36,10 @@ function Main() {
                 <Route path='/recomended-courses' element={<RecomendedCourses/>}/>
                 <Route path='/profile-setting' element={<ProfileSetting/>}/>
                 <Route path='/change-password' element={<ChangePassword/>}/>
+
+                <Route path='/teacher-login' element={<TeacherLogin/>}/>
+                <Route path='/teacher-register' element={<TeacherRegister/>}/>
+                <Route path='/teacher-dashboard' element={<TeacherDashboard/>}/>
             </Switch>
             <Footer/>
         </div>
