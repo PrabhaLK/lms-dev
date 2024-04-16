@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 // import MyCourses from "./MyCourses";
-import Sidebar from "./Sidebar";
+
 import TeacherSidebar from "./TeacherSidebar";
-function ChangePassword() {
+function TeacherChangePassword() {
     return (
         <div className="container mt-4">
             <div className="row">
@@ -29,4 +29,4 @@ function ChangePassword() {
     );
 }
 
-export default ChangePassword;
+export default TeacherChangePassword;

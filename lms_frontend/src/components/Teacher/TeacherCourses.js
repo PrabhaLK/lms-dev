@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-import Sidebar from "./Sidebar";
-function MyCourses() {
+import TeacherSidebar from "./TeacherSidebar";
+function TeacherCourses() {
     return (
         <div className="container mt-4">
             <div className="row">
                 <aside className="col-md-3">
-                    <Sidebar />
+                    <TeacherSidebar />
                 </aside>
                 <section className="col-md-9">
                     <div className="card">
@@ -38,4 +38,4 @@ function MyCourses() {
     );
 }
 
-export default MyCourses;
+export default TeacherCourses;
