@@ -4,7 +4,7 @@ function Home() {
   return (
     <div className="container mt-4">
       {/* Latest Courses start */}
-      <h3 className="pb-1 mb-2">Latest Courses<a className="float-end" href="">See All</a></h3>
+      <h3 className="pb-1 mb-2">Latest Courses<Link className="float-end" to="/all-courses">See All</Link></h3>
       <div className="row mb-4">
         <div className="col-md-3">
           <div className="card">
