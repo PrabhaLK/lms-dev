@@ -4,7 +4,9 @@ import Footer from './Footer';
 
 import About from './About us'; 
 import CourseDetail from './CourseDetail';
+import TeacherDetail from './TeacherDetail';
 
+//user 
 import Login from './User/Login';
 import Register from './User/Register';
 import Dashboard from './User/Dashboard';
@@ -14,6 +16,7 @@ import RecomendedCourses from './User/RecomendedCourses';
 import ProfileSetting from './User/ProfileSetting';
 import ChangePassword from './User/ChangePassword';
 
+//teacher
 import TeacherLogin from './Teacher/TeacherLogin';
 import TeacherRegister from './Teacher/TeacherRegister';
 import TeacherDashboard from './Teacher/TeacherDashboard';
@@ -50,6 +53,7 @@ function Main() {
                 <Route path='/teacher-users' element={<UserList/>}/>
                 <Route path='/teacher-profile-setting' element={<TeacherProfileSetting/>}/>
                 <Route path='/teacher-change-password' element={<TeacherChangePassword/>}/>
+                <Route path='/teacher-detail/:teacher_id' element={<TeacherDetail/>}/>
 
             </Switch>
             <Footer/>
