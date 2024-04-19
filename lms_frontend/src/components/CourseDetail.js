@@ -43,13 +43,13 @@ function CourseDetail() {
                         {/* video modal start*/}
                         <div className="modal fade" id="videoModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog modal-xl">
-                                <div className="modal-content">
+                                <div className="modal-content"> 
                                     <div className="modal-header">
                                         <h1 className="modal-title fs-5" id="exampleModalLabel">Video 1: </h1>
                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div className="modal-body">
-                                        <div class="ratio ratio-16x9">
+                                        <div className="ratio ratio-16x9">
                                             <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube video" allowfullscreen></iframe>
                                         </div>
                                     </div>
