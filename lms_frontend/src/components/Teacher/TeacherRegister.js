@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { useEffect } from 'react';
 
 function TeacherRegister() {
+    useEffect(() => {
+        document.title = 'Teacher Register';
+    });
     return (
         <div className="container mt-4">
             <div className="row">
@@ -22,14 +26,14 @@ function TeacherRegister() {
                                     <input type="password" className="form-control" id="exampleInputPassword1" />
                                 </div>
                                 <div className="mb-3">
-                                    <label for="exampleInputEmail1" 
-                                    className="form-label">Qualification</label>
-                                    <input type="text" className="form-control"  />
+                                    <label for="exampleInputEmail1"
+                                        className="form-label">Qualification</label>
+                                    <input type="text" className="form-control" />
                                 </div>
                                 <div className="mb-3">
-                                    <label for="exampleInputEmail1" 
-                                    className="form-label">Mobile Number</label>
-                                    <input type="number" className="form-control"  />
+                                    <label for="exampleInputEmail1"
+                                        className="form-label">Mobile Number</label>
+                                    <input type="number" className="form-control" />
                                 </div>
                                 <div className="mb-3">
                                     <label for="exampleInputEmail1" className="form-label">Skills</label>
