@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-function AllCourses() {
+function PopularCourses() {
     return (
         <div className="container mt-3">
-            {/* Latest Courses start */}
-            <h3 className="pb-1 mb-2"> Latest Courses </h3>
+            {/* Popular Courses start */}
+            <h3 className="pb-1 mb-2"> Popular Courses </h3>
             <div className="row mb-4">
                 <div className="col-md-3 mb-4">
                     <div className="card">
@@ -11,6 +11,12 @@ function AllCourses() {
                         <div className="card-body">
                             <h5 className="card-title"><Link to="/detail/1">JAVA</Link></h5>
                         </div>
+                        <div className="card-footer">
+                            <div className="title">
+                                <span>Rating: 4.5/5</span>
+                                <span className="float-end">Views: 420</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="col-md-3 mb-4">
@@ -18,6 +24,12 @@ function AllCourses() {
                         <a href=""><img src="java.jpeg" className="card-img-top" alt="java" /></a>
                         <div className="card-body">
                             <h5 className="card-title"><a href="#">Python</a></h5>
+                        </div>
+                        <div className="card-footer">
+                            <div className="title">
+                                <span>Rating: 4.5/5</span>
+                                <span className="float-end">Views: 420</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -27,6 +39,12 @@ function AllCourses() {
                         <div className="card-body">
                             <h5 className="card-title"><a href="#">JAVA</a></h5>
                         </div>
+                        <div className="card-footer">
+                            <div className="title">
+                                <span>Rating: 4.5/5</span>
+                                <span className="float-end">Views: 420</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="col-md-3 mb-4">
@@ -35,13 +53,11 @@ function AllCourses() {
                         <div className="card-body">
                             <h5 className="card-title"><a href="#">JAVA</a></h5>
                         </div>
-                    </div>
-                </div>
-                <div className="col-md-3 mb-4">
-                    <div className="card">
-                        <a href=""><img src="java.jpeg" className="card-img-top" alt="java" /></a>
-                        <div className="card-body">
-                            <h5 className="card-title"><a href="#">Python</a></h5>
+                        <div className="card-footer">
+                            <div className="title">
+                                <span>Rating: 4.5/5</span>
+                                <span className="float-end">Views: 420</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -51,13 +67,11 @@ function AllCourses() {
                         <div className="card-body">
                             <h5 className="card-title"><a href="#">Python</a></h5>
                         </div>
-                    </div>
-                </div>
-                <div className="col-md-3 mb-4">
-                    <div className="card">
-                        <a href=""><img src="java.jpeg" className="card-img-top" alt="java" /></a>
-                        <div className="card-body">
-                            <h5 className="card-title"><a href="#">Python</a></h5>
+                        <div className="card-footer">
+                            <div className="title">
+                                <span>Rating: 4.5/5</span>
+                                <span className="float-end">Views: 420</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,11 +80,45 @@ function AllCourses() {
                         <a href=""><img src="java.jpeg" className="card-img-top" alt="java" /></a>
                         <div className="card-body">
                             <h5 className="card-title"><a href="#">Python</a></h5>
+                        </div>
+                        <div className="card-footer">
+                            <div className="title">
+                                <span>Rating: 4.5/5</span>
+                                <span className="float-end">Views: 420</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-3 mb-4">
+                    <div className="card">
+                        <a href=""><img src="java.jpeg" className="card-img-top" alt="java" /></a>
+                        <div className="card-body">
+                            <h5 className="card-title"><a href="#">Python</a></h5>
+                        </div>
+                        <div className="card-footer">
+                            <div className="title">
+                                <span>Rating: 4.5/5</span>
+                                <span className="float-end">Views: 420</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-3 mb-4">
+                    <div className="card">
+                        <a href=""><img src="java.jpeg" className="card-img-top" alt="java" /></a>
+                        <div className="card-body">
+                            <h5 className="card-title"><a href="#">Python</a></h5>
+                        </div>
+                        <div className="card-footer">
+                            <div className="title">
+                                <span>Rating: 4.5/5</span>
+                                <span className="float-end">Views: 420</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {/* End Latest Courses  */}
+            {/* End Popular Courses  */}
             {/* Pagination start */}
             <nav aria-label="Page navigation example mt-5">
                 <ul className="pagination justify-content-center">
@@ -86,4 +134,4 @@ function AllCourses() {
     );
 }
 
-export default AllCourses;
+export default PopularCourses;

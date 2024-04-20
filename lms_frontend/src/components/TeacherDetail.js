@@ -8,7 +8,7 @@ function TeacherDetail() {
                     <img src="/java.jpeg" className="img-thumbnail" alt="teacher image" />
                 </div>
                 <div className='col-8'>
-                    <h3>Java</h3>
+                    <h3>Teacher Detail</h3>
                     <p>
                         Java is a powerful and versatile programming language widely used in software development, web applications, mobile apps, and enterprise systems.
                         This comprehensive course covers fundamental concepts such as object-oriented programming (OOP),

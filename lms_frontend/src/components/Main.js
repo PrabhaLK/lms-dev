@@ -28,6 +28,8 @@ import TeacherChangePassword from './Teacher/TeacherChangePassword';
 
 //List Pages
 import AllCourses from './AllCourses';
+import PopularCourses from './PopularCourses';
+import PopularTeachers from './PopularTeachers';
 
 import {Routes as Switch,Route} from 'react-router-dom'
 
@@ -59,6 +61,8 @@ function Main() {
                 <Route path='/teacher-detail/:teacher_id' element={<TeacherDetail/>}/>
 
                 <Route path='/all-courses/' element={<AllCourses/>}/>
+                <Route path='/popular-courses/' element={<PopularCourses/>}/>
+                <Route path='/popular-teachers/' element={<PopularTeachers/>}/>
 
             </Switch>
             <Footer/>
