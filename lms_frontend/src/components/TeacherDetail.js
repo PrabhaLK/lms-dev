@@ -18,8 +18,8 @@ function TeacherDetail() {
                         By the end of this course, participants will have a strong foundation in Java programming, enabling them to create
                         robust and scalable software solutions for various platforms and industries.
                     </p>
-                    <p><b>Skills:</b> <Link to="/teacher-detail/1">Php </Link>,
-                        <Link to="/teacher-detail/1">Python</Link>, <Link to="/teacher-detail/1">javaScript</Link></p>
+                    <p><b>Skills:</b> <Link to="/category/php">Php </Link>,
+                        <Link to="/category/php">Python</Link>, <Link to="/category/php">javaScript</Link></p>
                     <p><b>Recent Course:</b> <Link to="/teacher-detail/1">Php </Link></p>
                     <p><b>Rating: </b> 4/5</p>
                 </div>
