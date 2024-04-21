@@ -1,5 +1,17 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from 'axios'
+
+const BaseUrl = 'http://127.0.0.1:8000/api';
 function PopularTeachers() {
+    const [teacher, setTeacher] = useState(null);
+    useEffect(() => {
+        // console.log('component loaded');
+        axios.get(BaseUrl+'/teacher/').then((response) => {
+            setTeacher(response.data);
+        });
+    },[]);
+    console.log(teacher);
     return (
         <div className="container mt-3">
             {/* Popular Teachers start */}
@@ -14,7 +26,7 @@ function PopularTeachers() {
                         <div className="card-footer">
                             <div className="title">
                                 <span>Rating: 4.5/5</span>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -28,7 +40,7 @@ function PopularTeachers() {
                         <div className="card-footer">
                             <div className="title">
                                 <span>Rating: 4.5/5</span>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -42,7 +54,7 @@ function PopularTeachers() {
                         <div className="card-footer">
                             <div className="title">
                                 <span>Rating: 4.5/5</span>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -56,7 +68,7 @@ function PopularTeachers() {
                         <div className="card-footer">
                             <div className="title">
                                 <span>Rating: 4.5/5</span>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -70,7 +82,7 @@ function PopularTeachers() {
                         <div className="card-footer">
                             <div className="title">
                                 <span>Rating: 4.5/5</span>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -84,7 +96,7 @@ function PopularTeachers() {
                         <div className="card-footer">
                             <div className="title">
                                 <span>Rating: 4.5/5</span>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -98,7 +110,7 @@ function PopularTeachers() {
                         <div className="card-footer">
                             <div className="title">
                                 <span>Rating: 4.5/5</span>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -112,7 +124,7 @@ function PopularTeachers() {
                         <div className="card-footer">
                             <div className="title">
                                 <span>Rating: 4.5/5</span>
-                                
+
                             </div>
                         </div>
                     </div>
