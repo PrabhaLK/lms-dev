@@ -6,10 +6,12 @@ const baseUrl = 'http://127.0.0.1:8000/api';
 function TeacherCourses() {
     const[courseData,setCourseData]=useState([]);
 
+    const teacherId=localStorage.getItem('teacherId');
+    console.log(teacherId)
     //Fetch courses when page loads.
     useEffect(() => {
         try {
-            axios.get(baseUrl + '/teacher-courses/6')
+            axios.get(baseUrl + '/teacher-courses/'+teacherId)
             .then((res) => {
                 // console.log(res.data);
                 setCourseData(res.data);
@@ -35,6 +37,7 @@ function TeacherCourses() {
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Image</th>
                                         <th>Total Enrolled</th>
                                         <th>Action</th>
                                     </tr>
@@ -43,10 +46,11 @@ function TeacherCourses() {
                                 {courseData.map((course,index)=>
                                     <tr>
                                         <td>{course.title}</td>
-                                        <td><Link to="/">Suraj Kumar</Link></td>
+                                        <td><img src={course.featured_img} width="80" className="rounded" alt={course.title}/></td>
+                                        <td><Link to="/">123</Link></td>
                                         <td>
                                             <button className="btn btn-danger btn-sm">Delete</button>
-                                            <Link class=" ms-3 btn btn-success btn-sm" to ="/add-chapter/2">Add Chapter</Link>
+                                            <Link class=" ms-3 btn btn-success btn-sm" to={'/add-chapter/'+course.id}>Add Chapter</Link>
                                         </td>
                                     </tr>
                                 )}

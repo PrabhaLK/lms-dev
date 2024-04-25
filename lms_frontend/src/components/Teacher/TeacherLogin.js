@@ -23,15 +23,16 @@ function TeacherLogin() {
                 .then((res) => {
                     // console.log(res.data);
                     if (res.data.bool == true) {
-                        localStorage.setItem('teacherLoginStatus', true)
-                        window.location.href='/teacher-dashboard'
+                        localStorage.setItem('teacherLoginStatus', true);
+                        localStorage.setItem('teacherId',res.data.teacher_id);
+                        window.location.href='/teacher-dashboard';
                     }
                 });
         } catch (error) {
             console.log(error);
         }
     }
-    const teacherLoginStatus=localStorage.getItem('teacherLoginStatus')
+    const teacherLoginStatus=localStorage.getItem('teacherLoginStatus');
     if(teacherLoginStatus=='true'){
         window.location.href='/teacher-dashboard'
     }
