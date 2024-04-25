@@ -21,15 +21,37 @@ function CourseChapters() {
             console.log(error);
         }
     }, []);
-//delete data
-    const Swal= require('sweetalert2')
-    const handleDeleteClick = () => {
+    //delete data
+    const Swal = require('sweetalert2')
+    const handleDeleteClick = (chapter_id) => {
         Swal.fire({
-            title:'Confirm',
-            text:'Are you sure you want to delete this data?',
-            icon:'error',
-            confirmButtonText:'Continue',
-            ShowCancelButton:true
+            title: 'Confirm',
+            text: 'Are you sure you want to delete this data?',
+            icon: 'error',
+            confirmButtonText: 'Continue',
+            ShowCancelButton: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                try {
+                    axios.delete(baseUrl + '/chapter/' + chapter_id)
+                        .then((res) => {
+                            Swal.fire('success', 'Data has been deleted.');
+                            try {
+                                axios.get(baseUrl + '/course-chapters/' + course_id)
+                                    .then((res) => {
+                                        settotalResult(res.data.length);
+                                        setchapterData(res.data);
+                                    });
+                            } catch (error) {
+                                console.log(error);
+                            }
+                        });
+                } catch (error) {
+                    Swal.fire('error', 'Data has not been deleted!');
+                }
+            } else {
+                Swal.fire('error', 'Data has not been deleted!');
+            }
         });
     }
 
@@ -67,7 +89,7 @@ function CourseChapters() {
                                             <td>{chapter.remarks}</td>
                                             <td>
                                                 <Link to={'/edit-chapter/' + chapter.id} className="btn btn-info text-white mt-1"><i class="bi bi-pencil-square"></i></Link>
-                                                <button onClick={handleDeleteClick} className="btn btn-danger  mt-1 "><i class="bi bi-trash"></i></button>
+                                                <button onClick={() => handleDeleteClick(chapter.id)} className="btn btn-danger  mt-1 "><i class="bi bi-trash"></i></button>
                                             </td>
                                         </tr>
                                     )}
