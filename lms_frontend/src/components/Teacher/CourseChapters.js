@@ -7,6 +7,7 @@ const baseUrl = 'http://127.0.0.1:8000/api';
 
 function CourseChapters() {
     const [chapterData, setchapterData] = useState([]);
+    const [totalResult, settotalResult] = useState([0]);
     const { course_id } = useParams();
     //Fetch courses when page loads.
     useEffect(() => {
@@ -14,12 +15,25 @@ function CourseChapters() {
             axios.get(baseUrl + '/course-chapters/' + course_id)
                 .then((res) => {
                     // console.log(res.data);
+                    settotalResult(res.data.length);
                     setchapterData(res.data);
                 });
         } catch (error) {
             console.log(error);
         }
     }, []);
+//delete data
+    const Swal= require('sweetalert2')
+    const handleDeleteClick = () => {
+        Swal.fire({
+            title:'Confirm',
+            text:'Are you sure you want to delete this data?',
+            icon:'info',
+            confirmButtonText:'Continue',
+            ShowCancelButton:true
+        });
+    }
+
     return (
         <div className="container mt-4">
             <div className="row">
@@ -28,7 +42,7 @@ function CourseChapters() {
                 </aside>
                 <section className="col-md-9">
                     <div className="card">
-                        <h5 className="card-header">All Chapters</h5>
+                        <h5 className="card-header">All Chapters ({totalResult})</h5>
                         <div className="card-body">
                             <table className="table table-bordered">
                                 <thead>
@@ -42,7 +56,7 @@ function CourseChapters() {
                                 <tbody>
                                     {chapterData.map((chapter, index) =>
                                         <tr>
-                                            <td><Link className="text-decoration-none link-dark " to="#">{chapter.title}</Link></td>
+                                            <td><Link className="text-decoration-none link-dark " to={'/edit-chapter/' + chapter.id}>{chapter.title}</Link></td>
                                             <td>
                                                 {chapter.video &&
                                                     <video width="320" height="240" controls>
@@ -53,8 +67,8 @@ function CourseChapters() {
                                             </td>
                                             <td>{chapter.remarks}</td>
                                             <td>
-                                                <button className="btn btn-danger ">Delete</button>
-                                                <button className="btn btn-info text-white mt-1">Edit</button>
+                                                <Link to={'/edit-chapter/' + chapter.id} className="btn btn-info text-white mt-1"><i class="bi bi-pencil-square"></i></Link>
+                                                <button onClick={handleDeleteClick} className="btn btn-danger  mt-1 "><i class="bi bi-trash"></i></button>
                                             </td>
                                         </tr>
                                     )}
