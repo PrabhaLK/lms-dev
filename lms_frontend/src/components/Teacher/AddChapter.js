@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import TeacherSidebar from "./TeacherSidebar";
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 function AddChapter() {
@@ -25,25 +26,26 @@ function AddChapter() {
             [event.target.name]: event.target.files[0]
         });
     }
+    const { course_id } = useParams();
 
     const formSubmit = () => {
         const _formdata = new FormData();
-        _formdata.append('course', 1);
+        _formdata.append('course', course_id);
         _formdata.append('title', chapterData.title);
         _formdata.append('description', chapterData.description);
         _formdata.append('video', chapterData.video, chapterData.video.name);
         _formdata.append('remarks', chapterData.remarks);
-        try{
-            axios.post(baseUrl+'/chapter/',_formdata,{
-                headers:{
-                    'Content-Type':'multipart/form-data'
+        try {
+            axios.post(baseUrl + '/chapter/', _formdata, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
                 }
             })
-            .then((res)=>{
-                // console.log(res.data);
-                window.location.href='/add-chapter/1';
-            });
-        }catch(error){
+                .then((res) => {
+                    // console.log(res.data);
+                    window.location.href = '/add-chapter/1';
+                });
+        } catch (error) {
             console.log(error);
         }
     };
@@ -68,7 +70,7 @@ function AddChapter() {
                             </div>
                             <div className="mb-3">
                                 <label for="video" className="form-label">Video</label>
-                                    <input type="file" onChange={handleFileChange} name='video' className="form-control" id="video" />
+                                <input type="file" onChange={handleFileChange} name='video' className="form-control" id="video" />
                             </div>
                             <div className="mb-3">
                                 <label for="technologies" className="form-label">Remarks</label>
