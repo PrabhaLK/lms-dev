@@ -7,7 +7,7 @@ function TeacherCourses() {
     const[courseData,setCourseData]=useState([]);
 
     const teacherId=localStorage.getItem('teacherId');
-    console.log(teacherId)
+    // console.log(teacherId)
     //Fetch courses when page loads.
     useEffect(() => {
         try {
@@ -45,9 +45,9 @@ function TeacherCourses() {
                                 <tbody>
                                 {courseData.map((course,index)=>
                                     <tr>
-                                        <td>{course.title}</td>
+                                        <td><Link className="text-decoration-none link-dark " to={'/all-chapters/'+course.id}>{course.title}</Link></td>
                                         <td><img src={course.featured_img} width="80" className="rounded" alt={course.title}/></td>
-                                        <td><Link to="/">123</Link></td>
+                                        <td><Link className="text-decoration-none link-dark " to="/">123</Link></td>
                                         <td>
                                             <button className="btn btn-danger btn-sm">Delete</button>
                                             <Link class=" ms-3 btn btn-success btn-sm" to={'/add-chapter/'+course.id}>Add Chapter</Link>
