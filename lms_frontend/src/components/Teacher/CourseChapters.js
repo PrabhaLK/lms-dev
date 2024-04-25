@@ -14,7 +14,6 @@ function CourseChapters() {
         try {
             axios.get(baseUrl + '/course-chapters/' + course_id)
                 .then((res) => {
-                    // console.log(res.data);
                     settotalResult(res.data.length);
                     setchapterData(res.data);
                 });
@@ -28,7 +27,7 @@ function CourseChapters() {
         Swal.fire({
             title:'Confirm',
             text:'Are you sure you want to delete this data?',
-            icon:'info',
+            icon:'error',
             confirmButtonText:'Continue',
             ShowCancelButton:true
         });
