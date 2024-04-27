@@ -55,8 +55,7 @@ function EditChapter() {
                           position:'Top right',
                           timerProgressBar: 'continue',
                           showConfirmButton:false
-                        })
-          
+                        });
                       }
 
                     // window.location.href = '/edit-chapter/1';

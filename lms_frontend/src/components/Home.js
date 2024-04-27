@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect } from 'react';
+import '../css/Home.css';
 
 function Home() {
   useEffect(() => {
@@ -8,7 +9,7 @@ function Home() {
   return (
     <div className="container mt-4">
       {/* Latest Courses start */}
-      <h3 className="pb-1 mb-2">Latest Courses<Link className="float-end" to="/all-courses">See All</Link></h3>
+      <h3 className="pb-1 mb-2">Latest Courses<h6><Link to="/all-courses"><button className="float-end  btn-primary rounded-pill">See All</button></Link></h6></h3>
       <div className="row mb-4">
         <div className="col-md-3">
           <div className="card">
@@ -20,7 +21,7 @@ function Home() {
         </div>
         <div className="col-md-3">
           <div className="card">
-            <a href=""><img src="java.jpeg" className="card-img-top" alt="java" /></a>
+            <a href=""><img src="python.jpg" className="card-img-top" alt="java" /></a>
             <div className="card-body">
               <h5 className="card-title"><a href="#">Python</a></h5>
             </div>
@@ -28,17 +29,17 @@ function Home() {
         </div>
         <div className="col-md-3">
           <div className="card">
-            <a href=""><img src="java.jpeg" className="card-img-top" alt="java" /></a>
+            <a href=""><img src="html.jpg" className="card-img-top" alt="java" /></a>
             <div className="card-body">
-              <h5 className="card-title"><a href="#">JAVA</a></h5>
+              <h5 className="card-title"><a href="#">HTML</a></h5>
             </div>
           </div>
         </div>
         <div className="col-md-3">
           <div className="card">
-            <a href=""><img src="java.jpeg" className="card-img-top" alt="java" /></a>
+            <a href=""><img src="c++.jpeg" className="card-img-top" alt="java" /></a>
             <div className="card-body">
-              <h5 className="card-title"><a href="#">JAVA</a></h5>
+              <h5 className="card-title"><a href="#">C++</a></h5>
             </div>
           </div>
         </div>
