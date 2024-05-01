@@ -38,8 +38,11 @@ class Course(models.Model):
     class Meta:
         verbose_name_plural="3. Courses"
     def related_videos(self):
-        related_videos=Course.objects.filter(techs__icontains=self.techs)
+        related_videos=Course.objects.filter(techs__icontains=self.techs).exclude(id=self.id)
         return serializers.serialize('json',related_videos)
+    def tech_list(self):
+        tech_list=self.techs.split(',')
+        return tech_list
 
 #Chapter Model
 class Chapter(models.Model):

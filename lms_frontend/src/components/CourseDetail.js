@@ -9,6 +9,7 @@ function CourseDetail() {
     const [chapterData, setchapterData] = useState([]);
     const [teacherData, setteacherData] = useState([]);
     const [relatedcourseData, setrelatedcourseData] = useState([]);
+    const [techListData, settechListData] = useState([]);
     let { course_id } = useParams();
     //Fetch courses when page load.
     useEffect(() => {
@@ -19,6 +20,7 @@ function CourseDetail() {
                     setcourseData(res.data);
                     setchapterData(res.data.course_chapters);
                     setteacherData(res.data.teacher);
+                    settechListData(res.data.tech_list);
                     setrelatedcourseData(JSON.parse(res.data.related_videos));
                 });
         } catch (error) {
@@ -39,7 +41,11 @@ function CourseDetail() {
                         {courseData.description}
                     </p>
                     <p><b>Course By:</b> <Link className='text-decoration-none' to={`/teacher-detail/${teacherData.id}`}>{teacherData.full_name}</Link></p>
-                    <p><b>Technologies used: </b>{courseData.techs}</p>
+                    <p><b>Technologies used: </b>
+                    {techListData.map((tech, index) =>
+                        <Link className='badge badge-pill bg-warning me-2 text-dark text-decoration-none' to ={`/category/${tech.trim()}`}>{tech.trim()}</Link>
+                    )}
+                    </p>
                     <p><b>Duration: </b>3 Hours 13 Minutes</p>
                     <p><b>Total Enrolled:</b> 2 Students</p>
                     <p><b>Rating: </b> 4/5</p>
