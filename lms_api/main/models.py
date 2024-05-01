@@ -1,4 +1,5 @@
 from django.db import models
+from django.core import serializers
 
 # Create your models here.
 
@@ -34,6 +35,9 @@ class Course(models.Model):
     techs=models.TextField(null=True)
     class Meta:
         verbose_name_plural="3. Courses"
+    def related_videos(self):
+        related_videos=Course.objects.filter(techs__icontains=self.techs)
+        return serializers.serialize('json',related_videos)
 
 #Chapter Model
 class Chapter(models.Model):
