@@ -1,5 +1,25 @@
+import { useParams } from 'react-router-dom'
 import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import axios from "axios";
+const baseUrl = 'http://127.0.0.1:8000/api';
 function TeacherDetail() {
+    const [courseData, setcourseData] = useState([]);
+    const [teacherData, setteacherData] = useState([]);
+    let { teacher_id } = useParams();
+    //Fetch courses when page load.
+    useEffect(() => {
+        try {
+            axios.get(baseUrl + '/teacher/' + teacher_id)
+                .then((res) => {
+                    console.log(res);
+                    setteacherData(res.data);
+                    setcourseData(res.data.teacher_courses);
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
     return (
         <div className='container mt-3 '>
             <div className='row'>
@@ -8,15 +28,9 @@ function TeacherDetail() {
                     <img src="/java.jpeg" className="img-thumbnail" alt="teacher image" />
                 </div>
                 <div className='col-8'>
-                    <h3>Teacher Detail</h3>
+                    <h3>{teacherData.full_name}</h3>
                     <p>
-                        Java is a powerful and versatile programming language widely used in software development, web applications, mobile apps, and enterprise systems.
-                        This comprehensive course covers fundamental concepts such as object-oriented programming (OOP),
-                        data structures, algorithms, exception handling, and multithreading.
-                        Students will learn to design, develop, and deploy Java applications,
-                        gaining hands-on experience with key Java technologies like Java SE, Java EE, and JavaFX.
-                        By the end of this course, participants will have a strong foundation in Java programming, enabling them to create
-                        robust and scalable software solutions for various platforms and industries.
+                        {teacherData.detail}
                     </p>
                     <p><b>Skills:</b> <Link to="/category/php">Php </Link>,
                         <Link to="/category/php">Python</Link>, <Link to="/category/php">javaScript</Link></p>
@@ -30,13 +44,9 @@ function TeacherDetail() {
                     <h5 className="text-center">Course List</h5>
                 </div>
                 <div className="list-group list-group-flush">
-                    <Link to="/detail/1" className="list-group-item list-group-item-action ">php Course 1</Link>
-                    <Link to="/detail/1" className="list-group-item list-group-item-action ">Python Course 1</Link>
-                    <Link to="/detail/1" className="list-group-item list-group-item-action ">php Course 2</Link>
-                    <Link to="/detail/1" className="list-group-item list-group-item-action ">javaScript Course 1</Link>
-                    <Link to="/detail/1" className="list-group-item list-group-item-action ">Python Course 2</Link>
-                    <Link to="/detail/1" className="list-group-item list-group-item-action ">javaScript Course 2</Link>
-
+                    {courseData.map((course,index)=>
+                        <Link to={`/detail/${course.id}`} className="list-group-item list-group-item-action ">{course.title}</Link>
+                    )}
                 </div>
             </div>
             {/*course list end*/}
