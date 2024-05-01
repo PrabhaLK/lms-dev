@@ -1,27 +1,39 @@
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom';
-
+import { useState, useEffect } from 'react';
+import axios from "axios";
+const baseUrl = 'http://127.0.0.1:8000/api';
 function CourseDetail() {
+    const [courseData, setcourseData] = useState([]);
+    const [chapterData, setchapterData]=useState([]);
+    const [teacherData, setteacherData] = useState([]);
     let { course_id } = useParams();
+
+    useEffect(() => {
+        try {
+            axios.get(baseUrl + '/course/' + course_id)
+                .then((res) => {
+                    setcourseData(res.data);
+                    setchapterData(res.data.course_chapters);
+                    setteacherData(res.data.teacher);
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
     return (
         <div className='container mt-3 '>
             <div className='row'>
                 <div className='col-4'>
                     {/* Course Image */}
-                    <img src="/java.jpeg" className="img-thumbnail" alt="java-course-image" />
+                    <img src={courseData.featured_img} className="img-thumbnail" alt={courseData.title+' image'} />
                 </div>
                 <div className='col-8'>
-                    <h3>Java</h3>
+                    <h3>{courseData.title}</h3>
                     <p>
-                        Java is a powerful and versatile programming language widely used in software development, web applications, mobile apps, and enterprise systems.
-                        This comprehensive course covers fundamental concepts such as object-oriented programming (OOP),
-                        data structures, algorithms, exception handling, and multithreading.
-                        Students will learn to design, develop, and deploy Java applications,
-                        gaining hands-on experience with key Java technologies like Java SE, Java EE, and JavaFX.
-                        By the end of this course, participants will have a strong foundation in Java programming, enabling them to create
-                        robust and scalable software solutions for various platforms and industries.
+                       {courseData.description}
                     </p>
-                    <p><b>Course By:</b> <Link to="/teacher-detail/1">Saman Kumara</Link></p>
+                    <p><b>Course By:</b> <Link className='text-decoration-none' to="/teacher-detail/1">{teacherData.full_name}</Link></p>
                     <p><b>Duration: </b>3 Hours 13 Minutes</p>
                     <p><b>Total Enrolled:</b> 2 Students</p>
                     <p><b>Rating: </b> 4/5</p>
@@ -33,8 +45,8 @@ function CourseDetail() {
                     <h5 className="text-center">Course Content</h5>
                 </div>
                 <ul className="list-group list-group-flush">
-
-                    <li className="list-group-item ">Introduction to Java
+                {chapterData.map((chapter, index) =>
+                    <li className="list-group-item ">{chapter.title}
                         <span className="float-end">
                             <span className="me-3">1 hour 30  Minutes</span>
                             <button className="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#videoModal1">
@@ -50,7 +62,7 @@ function CourseDetail() {
                                     </div>
                                     <div className="modal-body">
                                         <div className="ratio ratio-16x9">
-                                            <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube video" allowfullscreen></iframe>
+                                            <iframe src={chapter.video} title={chapter.title} allowfullscreen></iframe>
                                         </div>
                                     </div>
                                 </div>
@@ -58,32 +70,7 @@ function CourseDetail() {
                         </div>
                         {/* video modal end*/}
                     </li>
-                    <li className="list-group-item">JAVA Get Started<span className="float-end">
-                        <span className="me-3">1:30 Minutes</span>
-                        <button className="btn btn-danger btn-sm">
-                            <i className="bi-youtube"></i></button>
-                    </span> </li>
-                    <li className="list-group-item">Java Data Types<span className="float-end">
-                        <span className="me-3">1:30 Minutes</span>
-                        <button className="btn btn-danger btn-sm">
-                            <i className="bi-youtube"></i></button>
-                    </span> </li>
-                    <li className="list-group-item ">Java Variables<span className="float-end">
-                        <span className="me-3">1:30 Minutes</span>
-                        <button className="btn btn-danger btn-sm">
-                            <i className="bi-youtube"></i></button>
-                    </span> </li>
-                    <li className="list-group-item">Java if Statement<span className="float-end">
-                        <span className="me-3">1:30 Minutes</span>
-                        <button className="btn btn-danger btn-sm">
-                            <i className="bi-youtube"></i></button>
-                    </span> </li>
-                    <li className="list-group-item">JAVA Loops<span className="float-end">
-                        <span className="me-3">1:30 Minutes</span>
-                        <button className="btn btn-danger btn-sm">
-                            <i className="bi-youtube"></i></button>
-                    </span> </li>
-
+                    )}
                 </ul>
             </div>
             {/*course videos end*/}
