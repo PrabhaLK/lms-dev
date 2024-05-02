@@ -1,6 +1,6 @@
 from django.db import models
-import moviepy.editor
 from django.core import serializers
+import moviepy.editor
 
 # Create your models here.
 
@@ -15,6 +15,10 @@ class Teacher(models.Model):
     skills=models.TextField()
     class Meta:
         verbose_name_plural="1. Teachers"
+
+    def skill_list(self):
+        skill_list=self.skills.split(',')
+        return skill_list
 
 #CourseCategory Model
 class CourseCategory(models.Model):
@@ -50,6 +54,7 @@ class Chapter(models.Model):
     title=models.CharField(max_length=150)
     description=models.TextField()
     video=models.FileField(upload_to='chapter_videos/', null=True)
+    video_duration=models.CharField(max_length=100, blank=True, null=True)
     remarks=models.TextField(null=True)
     class Meta:
         verbose_name_plural="4. Chapters"

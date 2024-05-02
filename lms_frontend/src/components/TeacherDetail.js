@@ -6,6 +6,7 @@ const baseUrl = 'http://127.0.0.1:8000/api';
 function TeacherDetail() {
     const [courseData, setcourseData] = useState([]);
     const [teacherData, setteacherData] = useState([]);
+    const [skillList, setskillList] = useState([]);
     let { teacher_id } = useParams();
     //Fetch courses when page load.
     useEffect(() => {
@@ -15,6 +16,7 @@ function TeacherDetail() {
                     console.log(res);
                     setteacherData(res.data);
                     setcourseData(res.data.teacher_courses);
+                    setskillList(res.data.skill_list);
                 });
         } catch (error) {
             console.log(error);
@@ -32,8 +34,13 @@ function TeacherDetail() {
                     <p>
                         {teacherData.detail}
                     </p>
-                    <p><b>Skills:</b> <Link to="/category/php">Php </Link>,
-                        <Link to="/category/php">Python</Link>, <Link to="/category/php">javaScript</Link></p>
+                    <p><b>Skills:</b>
+                        {skillList.map((skill, index) =>
+                            <>
+                                <Link className='badge badge-pill bg-warning me-2 text-dark text-decoration-none' to={`/teacher-skill-courses/${skill.trim()}/${teacherData.id}`}>{skill.trim()}</Link>
+                            </>
+                        )}
+                    </p>
                     <p><b>Recent Course:</b> <Link to="/teacher-detail/1">Php </Link></p>
                     <p><b>Rating: </b> 4/5</p>
                 </div>
@@ -44,7 +51,7 @@ function TeacherDetail() {
                     <h5 className="text-center">Course List</h5>
                 </div>
                 <div className="list-group list-group-flush">
-                    {courseData.map((course,index)=>
+                    {courseData.map((course, index) =>
                         <Link to={`/detail/${course.id}`} className="list-group-item list-group-item-action ">{course.title}</Link>
                     )}
                 </div>
