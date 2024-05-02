@@ -4,7 +4,8 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework import generics, permissions
-from .serializers import TeacherSerializer, CategorySerializer, CourseSerializer, ChapterSerializer
+
+from .serializers import TeacherSerializer, CategorySerializer, CourseSerializer, ChapterSerializer,StudentSerializer
 from . import models
 # Create your views here.
 
@@ -103,3 +104,16 @@ class CourseChapterList(generics.ListCreateAPIView):
 class ChapterDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Chapter.objects.all()
     serializer_class = ChapterSerializer
+
+# def get_serializer_context(self):
+#     context=super().get_serializer_context()
+#     context['chapter_duration']=self.chapter_duration
+#     print('context--------------')
+#     print(context)
+#     return(context)
+
+#Student Data 
+class StudentList(generics.ListCreateAPIView):
+    queryset= models.Student.objects.all()
+    serializer_class=StudentSerializer
+    # permission_classes=[permissions.IsAuthenticated]
