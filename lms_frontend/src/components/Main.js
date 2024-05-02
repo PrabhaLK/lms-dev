@@ -15,6 +15,7 @@ import FavouriteCourses from './User/FavouriteCourses';
 import RecomendedCourses from './User/RecomendedCourses';
 import ProfileSetting from './User/ProfileSetting';
 import ChangePassword from './User/ChangePassword';
+import StudentLogout from './User/StudentLogout';
 
 //teacher
 import TeacherLogin from './Teacher/TeacherLogin';
@@ -57,6 +58,7 @@ function Main() {
                 <Route path='/recomended-courses' element={<RecomendedCourses/>}/>
                 <Route path='/profile-setting' element={<ProfileSetting/>}/>
                 <Route path='/change-password' element={<ChangePassword/>}/>
+                <Route path='/user-logout' element={<StudentLogout/>}/>
 
                 <Route path='/teacher-login' element={<TeacherLogin/>}/>
                 <Route path='/teacher-logout' element={<TeacherLogout/>}/>

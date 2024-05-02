@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 const baseUrl = 'http://127.0.0.1:8000/api';
@@ -16,14 +15,14 @@ function TeacherLogin() {
     }
     const submitForm = () => {
         // console.log(teacherLoginData);
-        const teacherFormData = new FormData;
+        const teacherFormData = new FormData();
         teacherFormData.append('email', teacherLoginData.email)
         teacherFormData.append('password', teacherLoginData.password)
         try {
             axios.post(baseUrl + '/teacher-login', teacherFormData)
                 .then((res) => {
                     // console.log(res.data);
-                    if (res.data.bool == true) {
+                    if (res.data.bool === true) {
                         localStorage.setItem('teacherLoginStatus', true);
                         localStorage.setItem('teacherId',res.data.teacher_id);
                         window.location.href='/teacher-dashboard';
