@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework import generics, permissions
 
-from .serializers import TeacherSerializer, CategorySerializer, CourseSerializer, ChapterSerializer,StudentSerializer
+from .serializers import TeacherSerializer, CategorySerializer, CourseSerializer, ChapterSerializer,StudentSerializer,StudentCourseEnrollSerializer
 from . import models
 # Create your views here.
 
@@ -128,5 +128,19 @@ def student_login(request):
         studentData=None
     if studentData:
         return JsonResponse({'bool':True,'student_id':studentData.id})
+    else:
+        return JsonResponse({'bool':False})
+    
+class StudentEnrollCourseList(generics.ListCreateAPIView):
+    queryset= models.StudentCourseEnrollment.objects.all()
+    serializer_class=StudentCourseEnrollSerializer
+    # permission_classes=[permissions.IsAuthenticated]
+
+def fetch_enroll_status(request,student_id,course_id):
+    student=models.Student.objects.filter(id=student_id).first()
+    course=models.Course.objects.filter(id=course_id).first()
+    enrollStatus=models.StudentCourseEnrollment.objects.filter(course=course,student=student).count()
+    if enrollStatus:
+        return JsonResponse({'bool':True})
     else:
         return JsonResponse({'bool':False})

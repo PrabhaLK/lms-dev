@@ -1,0 +1,26 @@
+python manage.py runserver
+python manage.py makemigrations
+python manage.py migrate
+
+folder path D:\Prabha's Stuffs\Progamming\WEB\LMS and Exam Management System\bkcup backend project\lms-dev\
+db path = D:\Prabha's Stuffs\Progamming\WEB\LMS and Exam Management System\bkcup backend project\lms-dev\lms_api
+winenv path = D:\Prabha's Stuffs\Progamming\WEB\LMS and Exam Management System\bkcup backend project\lms-dev\winenv
+
+winenv acitivation script 
+cd Scripts 
+activate
+
+
+
+hello. 
+video duration check on models.py and serializers.py also have the code in views.py 
+needed to install python opencv (cv2) for video duration
+also the add chapter.js has the const for video duration video 49 - 15:56
+and in formdata is passing the video duration. 
+
+
+have to fix 
+redirecting for the student-dashboard instead of user-dashboard after student login
+
+
+

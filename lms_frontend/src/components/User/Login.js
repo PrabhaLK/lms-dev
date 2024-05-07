@@ -37,7 +37,7 @@ function Login() {
     }
     const studentLoginStatus = localStorage.getItem('studentLoginStatus');
     if (studentLoginStatus === 'true') {
-        window.location.href = '/student-dashboard'
+        window.location.href = '/user-dashboard'
     }
 
     useEffect(() => {

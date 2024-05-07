@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2'
 import axios from "axios";
 const siteUrl = 'http://127.0.0.1:8000/';
 const baseUrl = 'http://127.0.0.1:8000/api';
@@ -9,8 +10,11 @@ function CourseDetail() {
     const [chapterData, setchapterData] = useState([]);
     const [teacherData, setteacherData] = useState([]);
     const [relatedcourseData, setrelatedcourseData] = useState([]);
+    const [userLoginStatus,setuserLoginStatus] =useState();
+    const [enrollStatus,setenrollStatus] =useState();
     const [techList, settechList] = useState([]);
     let { course_id } = useParams();
+    const studentId=localStorage.getItem('studentId');
     //Fetch courses when page load.
     useEffect(() => {
         try {
@@ -26,8 +30,56 @@ function CourseDetail() {
         } catch (error) {
             console.log(error);
         }
+        //fetch enroll status
+        try {
+            axios.get(baseUrl + '/fetch-enroll-status/' + studentId+'/'+course_id)
+                .then((res) => {
+                    console.log(res);
+                    if(res.data.bool==true){
+                        setenrollStatus('success');
+                    }
+                });
+        } catch (error) {
+            console.log(error);
+        }
+        const studentLoginStatus = localStorage.getItem('studentLoginStatus');
+        if (studentLoginStatus === 'true') {
+            setuserLoginStatus('success')      
+        }
     }, []);
     // console.log(relatedcourseData);
+
+    const enrollCourse = () =>{
+        // console.log('enroll course clicked'); 
+        const studentId=localStorage.getItem('studentId');
+        const _formdata = new FormData();
+        _formdata.append('course', course_id);
+        _formdata.append('student', studentId);
+        try{
+            axios.post(baseUrl+'/student-enroll-course/',_formdata,{
+                headers:{
+                    'Content-Type':'multipart/form-data'
+                }
+            })
+            .then((res)=>{
+                if(res.status===200||res.status===201){
+                    Swal.fire({
+                        title: 'You have successfully enrolled in this course',
+                        icon:"success",
+                        toast:true,
+                        timer:3000,
+                        position:'top-right',
+                        timerProgressBar:true,
+                        showConfirmButton:false
+                    });
+                    setenrollStatus('success')
+                }
+            });
+        }catch(error){
+            console.log(error);
+        } 
+    }
+
     return (
         <div className='container mt-3 pb-2 '>
             <div className='row'>
@@ -51,13 +103,24 @@ function CourseDetail() {
                     <p><b>Duration: </b>3 Hours 13 Minutes</p>
                     <p><b>Total Enrolled:</b> 2 Students</p>
                     <p><b>Rating: </b> 4/5</p>
+                    {enrollStatus ==='success' && userLoginStatus =='success' &&
+                            <p><span>You are already enrolled in this course.</span></p>
+                    }
+                    {userLoginStatus ==='success' && enrollStatus !=='success' &&
+                            <p><button onClick={enrollCourse} type='button' className='btn btn-success'>Enroll in this Course</button></p>
+                    }
+                    {userLoginStatus !=='success' &&
+                        <p><Link to='/user-login'  className='btn btn-warning'>Please login to enroll in this course</Link></p>
+                    }
                 </div>
             </div>
             {/*course videos start*/}
+            
             <div className="card mt-4">
                 <div className="card-header">
                     <h5 className="text-center">Course Content</h5>
                 </div>
+                {enrollStatus ==='success' && userLoginStatus =='success' &&
                 <ul className="list-group list-group-flush">
                     {chapterData.map((chapter, index) =>
                         <li className="list-group-item " key={chapter.id}>{chapter.title}
@@ -86,6 +149,14 @@ function CourseDetail() {
                         </li>
                     )}
                 </ul>
+                }
+                {/* custom added code  */}
+                { enrollStatus !=='success' &&
+                <ul className='list-group list-group-flush'>
+                    <li  className=' btn btn-lg btn-primary list-group-item' disabled><h5>This Course Content is hidden!</h5></li>
+                    <li className=' btn  btn-primary list-group-item'>please enroll this course to see course content</li>
+                </ul>
+                }
             </div>
             {/*course videos end*/}
             {/* Related Courses start  */}
