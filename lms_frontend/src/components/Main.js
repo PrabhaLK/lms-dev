@@ -28,6 +28,7 @@ import CourseChapters from './Teacher/CourseChapters';
 import EditChapter from './Teacher/EditChapter';
 import AddChapter from './Teacher/AddChapter';
 import TeacherCourses from './Teacher/TeacherCourses';
+import EnrolledStudents from './Teacher/EnrolledStudents';
 import UserList from './Teacher/UserList';
 import TeacherProfileSetting from './Teacher/TeacherProfileSetting';
 import TeacherChangePassword from './Teacher/TeacherChangePassword';
@@ -70,6 +71,7 @@ function Main() {
                 <Route path='/edit-chapter/:chapter_id' element={<EditChapter/>}/>
                 <Route path='/all-chapters/:course_id' element={<CourseChapters/>}/>
                 <Route path='/teacher-courses' element={<TeacherCourses/>}/>
+                <Route path='/enrolled-students/:course_id' element={<EnrolledStudents/>}/>
                 <Route path='/teacher-users' element={<UserList/>}/>
                 <Route path='/teacher-profile-setting' element={<TeacherProfileSetting/>}/>
                 <Route path='/teacher-change-password' element={<TeacherChangePassword/>}/>

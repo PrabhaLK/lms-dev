@@ -23,4 +23,7 @@ have to fix
 redirecting for the student-dashboard instead of user-dashboard after student login
 
 
+in video 50 video_duration is renamed to chapter_duration
+
+
 
