@@ -10,11 +10,11 @@ function CourseDetail() {
     const [chapterData, setchapterData] = useState([]);
     const [teacherData, setteacherData] = useState([]);
     const [relatedcourseData, setrelatedcourseData] = useState([]);
-    const [userLoginStatus,setuserLoginStatus] =useState();
-    const [enrollStatus,setenrollStatus] =useState();
+    const [userLoginStatus, setuserLoginStatus] = useState();
+    const [enrollStatus, setenrollStatus] = useState();
     const [techList, settechList] = useState([]);
     let { course_id } = useParams();
-    const studentId=localStorage.getItem('studentId');
+    const studentId = localStorage.getItem('studentId');
     //Fetch courses when page load.
     useEffect(() => {
         try {
@@ -32,10 +32,10 @@ function CourseDetail() {
         }
         //fetch enroll status
         try {
-            axios.get(baseUrl + '/fetch-enroll-status/' + studentId+'/'+course_id)
+            axios.get(baseUrl + '/fetch-enroll-status/' + studentId + '/' + course_id)
                 .then((res) => {
                     console.log(res);
-                    if(res.data.bool==true){
+                    if (res.data.bool == true) {
                         setenrollStatus('success');
                     }
                 });
@@ -44,40 +44,40 @@ function CourseDetail() {
         }
         const studentLoginStatus = localStorage.getItem('studentLoginStatus');
         if (studentLoginStatus === 'true') {
-            setuserLoginStatus('success')      
+            setuserLoginStatus('success')
         }
     }, []);
     // console.log(relatedcourseData);
 
-    const enrollCourse = () =>{
+    const enrollCourse = () => {
         // console.log('enroll course clicked'); 
-        const studentId=localStorage.getItem('studentId');
+        const studentId = localStorage.getItem('studentId');
         const _formdata = new FormData();
         _formdata.append('course', course_id);
         _formdata.append('student', studentId);
-        try{
-            axios.post(baseUrl+'/student-enroll-course/',_formdata,{
-                headers:{
-                    'Content-Type':'multipart/form-data'
+        try {
+            axios.post(baseUrl + '/student-enroll-course/', _formdata, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
                 }
             })
-            .then((res)=>{
-                if(res.status===200||res.status===201){
-                    Swal.fire({
-                        title: 'You have successfully enrolled in this course',
-                        icon:"success",
-                        toast:true,
-                        timer:3000,
-                        position:'top-right',
-                        timerProgressBar:true,
-                        showConfirmButton:false
-                    });
-                    setenrollStatus('success')
-                }
-            });
-        }catch(error){
+                .then((res) => {
+                    if (res.status === 200 || res.status === 201) {
+                        Swal.fire({
+                            title: 'You have successfully enrolled in this course',
+                            icon: "success",
+                            toast: true,
+                            timer: 3000,
+                            position: 'top-right',
+                            timerProgressBar: true,
+                            showConfirmButton: false
+                        });
+                        setenrollStatus('success')
+                    }
+                });
+        } catch (error) {
             console.log(error);
-        } 
+        }
     }
 
     return (
@@ -102,60 +102,102 @@ function CourseDetail() {
                     </p>
                     <p><b>Duration: </b>3 Hours 13 Minutes</p>
                     <p><b>Total Enrolled:</b> {courseData.total_enrolled_students} Student(s)</p>
-                    <p><b>Rating: </b> 4/5</p>
-                    {enrollStatus ==='success' && userLoginStatus =='success' &&
-                            <p><span>You are already enrolled in this course.</span></p>
-                    }
-                    {userLoginStatus ==='success' && enrollStatus !=='success' &&
-                            <p><button onClick={enrollCourse} type='button' className='btn btn-success'>Enroll in this Course</button></p>
-                    }
-                    {userLoginStatus !=='success' &&
-                        <p><Link to='/user-login'  className='btn btn-warning'>Please login to enroll in this course</Link></p>
-                    }
-                </div>
-            </div>
-            {/*course videos start*/}
-            
-            <div className="card mt-4">
-                <div className="card-header">
-                    <h5 className="text-center">Course Content</h5>
-                </div>
-                {enrollStatus ==='success' && userLoginStatus =='success' &&
-                <ul className="list-group list-group-flush">
-                    {chapterData.map((chapter, index) =>
-                        <li className="list-group-item " key={chapter.id}>{chapter.title}
-                            <span className="float-end">
-                                <span className="me-3">1 hour 30  Minutes</span>
-                                <button className="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#videoModal1">
-                                    <i className="bi-youtube"></i></button>
-                            </span>
-                            {/* video modal start*/}
-                            <div className="modal fade" id="videoModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div className="modal-dialog modal-xl">
-                                    <div className="modal-content">
-                                        <div className="modal-header">
-                                            <h1 className="modal-title fs-5" id="exampleModalLabel">Video 1: </h1>
-                                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div className="modal-body">
-                                            <div className="ratio ratio-16x9">
-                                                <iframe src={chapter.video} title={chapter.title} allowfullscreen></iframe>
+                    <p><b>Rating: </b>
+                        4/5
+                        {enrollStatus === 'success' && userLoginStatus == 'success' &&
+                            <>
+                                <button className='btn btn-success btn-sm ms-3' data-bs-toggle="modal" data-bs-target="#ratingModal">Rate this course</button>
+                                {/* modal start  */}
+                                <div className="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div className="modal-dialog modal-lg">
+                                        <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h5 className="modal-title" id="exampleModalLabel">Rate for: {courseData.title}</h5>
+                                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div className="modal-body">
+                                                <form>
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputEmail1" class="form-label">Rating</label>
+                                                        <select className='form-control'>
+                                                            <option value='1'>1</option>
+                                                            <option value='2'>2</option>
+                                                            <option value='3'>3</option>
+                                                            <option value='4'>4</option>
+                                                            <option value='5'>5</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">Review</label>
+                                                        <input type="password" class="form-control" id="exampleInputPassword1"/>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </form>
+                                            </div>
+                                            <div className="modal-footer">
+                                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" className="btn btn-primary">Save changes</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            {/* video modal end*/}
-                        </li>
-                    )}
-                </ul>
+                                {/* modal end  */}
+                            </>
+                        }
+                    </p>
+                    {enrollStatus === 'success' && userLoginStatus == 'success' &&
+                        <p><span>You are already enrolled in this course.</span></p>
+                    }
+                    {userLoginStatus === 'success' && enrollStatus !== 'success' &&
+                        <p><button onClick={enrollCourse} type='button' className='btn btn-success'>Enroll in this Course</button></p>
+                    }
+                    {userLoginStatus !== 'success' &&
+                        <p><Link to='/user-login' className='btn btn-warning'>Please login to enroll in this course</Link></p>
+                    }
+                </div>
+            </div>
+            {/*course videos start*/}
+
+            <div className="card mt-4">
+                <div className="card-header">
+                    <h5 className="text-center">Course Content</h5>
+                </div>
+                {enrollStatus === 'success' && userLoginStatus == 'success' &&
+                    <ul className="list-group list-group-flush">
+                        {chapterData.map((chapter, index) =>
+                            <li className="list-group-item " key={chapter.id}>{chapter.title}
+                                <span className="float-end">
+                                    <span className="me-3">1 hour 30  Minutes</span>
+                                    <button className="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#videoModal1">
+                                        <i className="bi-youtube"></i></button>
+                                </span>
+                                {/* video modal start*/}
+                                <div className="modal fade" id="videoModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div className="modal-dialog modal-xl">
+                                        <div className="modal-content">
+                                            <div className="modal-header">
+                                                <h1 className="modal-title fs-5" id="exampleModalLabel">Video 1: </h1>
+                                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div className="modal-body">
+                                                <div className="ratio ratio-16x9">
+                                                    <iframe src={chapter.video} title={chapter.title} allowfullscreen></iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* video modal end*/}
+                            </li>
+                        )}
+                    </ul>
                 }
                 {/* custom added code  */}
-                { enrollStatus !=='success' &&
-                <ul className='list-group list-group-flush'>
-                    <li  className=' btn btn-lg btn-primary list-group-item' disabled><h5>This Course Content is hidden!</h5></li>
-                    <li className=' btn  btn-primary list-group-item'>please enroll this course to see course content</li>
-                </ul>
+                {enrollStatus !== 'success' &&
+                    <ul className='list-group list-group-flush'>
+                        <li className=' btn btn-lg btn-primary list-group-item' disabled><h5>This Course Content is hidden!</h5></li>
+                        <li className=' btn  btn-primary list-group-item'>please enroll this course to see course content</li>
+                    </ul>
                 }
             </div>
             {/*course videos end*/}
