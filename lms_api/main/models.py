@@ -51,7 +51,7 @@ class Course(models.Model):
         tech_list=self.techs.split(',')
         return tech_list
     def total_enrolled_students(self):
-        total_enrolled_students=CourseRating.objects.filter(course=self).count()
+        total_enrolled_students=StudentCourseEnrollment.objects.filter(course=self).count()
         return total_enrolled_students
     
     def course_rating(self):
