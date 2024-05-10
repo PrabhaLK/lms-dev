@@ -12,6 +12,8 @@ function CourseDetail() {
     const [relatedcourseData, setrelatedcourseData] = useState([]);
     const [userLoginStatus, setuserLoginStatus] = useState();
     const [enrollStatus, setenrollStatus] = useState();
+    const [ratingStatus, setratingStatus] = useState();
+    const [AvgRating, setAvgRating] = useState(0);
     const [techList, settechList] = useState([]);
     let { course_id } = useParams();
     const studentId = localStorage.getItem('studentId');
@@ -26,6 +28,10 @@ function CourseDetail() {
                     setteacherData(res.data.teacher);
                     settechList(res.data.tech_list);
                     setrelatedcourseData(JSON.parse(res.data.related_videos));
+                    if (res.data.course_rating !='' && res.data.course_rating != null ){
+                        setAvgRating(res.data.course_rating);
+                    }
+                    
                 });
         } catch (error) {
             console.log(error);
@@ -42,6 +48,20 @@ function CourseDetail() {
         } catch (error) {
             console.log(error);
         }
+
+        //fetch rating status
+        try {
+            axios.get(baseUrl + '/fetch-rating-status/' + studentId + '/' + course_id)
+                .then((res) => {
+                    console.log(res);
+                    if (res.data.bool == true) {
+                        setratingStatus('success');
+                    }
+                });
+        } catch (error) {
+            console.log(error);
+        }
+
         const studentLoginStatus = localStorage.getItem('studentLoginStatus');
         if (studentLoginStatus === 'true') {
             setuserLoginStatus('success')
@@ -80,6 +100,46 @@ function CourseDetail() {
         }
     }
 
+    // Add rating
+    const [ratingData, setratingData] = useState({
+        rating: '',
+        reviews: '',
+    });
+
+    const handleChange = (event) => {
+        setratingData({
+            ...ratingData,
+            [event.target.name]: event.target.value
+        });
+    }
+    const formSubmit = () => {
+        const _formRatingdata = new FormData();
+        _formRatingdata.append('course', course_id);
+        _formRatingdata.append('student', studentId);
+        _formRatingdata.append('rating', ratingData.rating);
+        _formRatingdata.append('reviews', ratingData.reviews);
+        try {
+            axios.post(baseUrl+'/course-rating/'+course_id,  _formRatingdata,)
+                .then((res) => {
+                    if(res.status===200||res.status===201){
+                        Swal.fire({
+                            title: 'Rating is submitted: Thanks for rating.',
+                            icon:"success",
+                            toast:true,
+                            timer:5000,
+                            position:'top-right',
+                            timerProgressBar:true,
+                            showConfirmButton:false
+                        });
+                        window.location.reload()  
+                    }
+                    
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <div className='container mt-3 pb-2 '>
             <div className='row'>
@@ -103,10 +163,15 @@ function CourseDetail() {
                     <p><b>Duration: </b>3 Hours 13 Minutes</p>
                     <p><b>Total Enrolled:</b> {courseData.total_enrolled_students} Student(s)</p>
                     <p><b>Rating: </b>
-                        4/5
-                        {enrollStatus === 'success' && userLoginStatus == 'success' &&
+                        {AvgRating}/5
+                        {enrollStatus === 'success' && userLoginStatus === 'success' && 
                             <>
+                            {ratingStatus != 'success' &&
                                 <button className='btn btn-success btn-sm ms-3' data-bs-toggle="modal" data-bs-target="#ratingModal">Rate this course</button>
+                            }
+                            {ratingStatus == 'success' &&
+                            <button className='btn btn-secondary fw-bold btn-sm ms-3' disabled>Rating Submitted</button>
+                            }
                                 {/* modal start  */}
                                 <div className="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div className="modal-dialog modal-lg">
@@ -119,7 +184,7 @@ function CourseDetail() {
                                                 <form>
                                                     <div class="mb-3">
                                                         <label for="exampleInputEmail1" class="form-label">Rating</label>
-                                                        <select className='form-control'>
+                                                        <select onChange={handleChange} className='form-control'name='rating'>
                                                             <option value='1'>1</option>
                                                             <option value='2'>2</option>
                                                             <option value='3'>3</option>
@@ -129,14 +194,10 @@ function CourseDetail() {
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="exampleInputPassword1" class="form-label">Review</label>
-                                                        <input type="password" class="form-control" id="exampleInputPassword1"/>
+                                                        <textarea onChange={handleChange} className='form-control' name='reviews'></textarea>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                    <button type="button" onClick={formSubmit} class="btn btn-primary">Submit</button>
                                                 </form>
-                                            </div>
-                                            <div className="modal-footer">
-                                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" className="btn btn-primary">Save changes</button>
                                             </div>
                                         </div>
                                     </div>
@@ -146,7 +207,7 @@ function CourseDetail() {
                         }
                     </p>
                     {enrollStatus === 'success' && userLoginStatus == 'success' &&
-                        <p><span>You are already enrolled in this course.</span></p>
+                        <p><span className='text-success fw-bold'>You are already enrolled in this course.</span></p>
                     }
                     {userLoginStatus === 'success' && enrollStatus !== 'success' &&
                         <p><button onClick={enrollCourse} type='button' className='btn btn-success'>Enroll in this Course</button></p>

@@ -1,6 +1,6 @@
-python manage.py runserver
 python manage.py makemigrations
 python manage.py migrate
+python manage.py runserver
 
 folder path D:\Prabha's Stuffs\Progamming\WEB\LMS and Exam Management System\bkcup backend project\lms-dev\
 db path = D:\Prabha's Stuffs\Progamming\WEB\LMS and Exam Management System\bkcup backend project\lms-dev\lms_api
@@ -24,6 +24,9 @@ redirecting for the student-dashboard instead of user-dashboard after student lo
 
 
 in video 50 video_duration is renamed to chapter_duration
+
+
+views.py video 51 has been modified to see the url: course-rating/ instead of course-rating/<courseid>
 
 
 

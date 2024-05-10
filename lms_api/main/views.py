@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework import generics, permissions
 
-from .serializers import TeacherSerializer, CategorySerializer, CourseSerializer, ChapterSerializer,StudentSerializer,StudentCourseEnrollSerializer
+from .serializers import TeacherSerializer, CategorySerializer, CourseSerializer, ChapterSerializer,StudentSerializer,StudentCourseEnrollSerializer,CourseRatingSerializer
 from . import models
 # Create your views here.
 
@@ -134,7 +134,6 @@ def student_login(request):
 class StudentEnrollCourseList(generics.ListCreateAPIView):
     queryset= models.StudentCourseEnrollment.objects.all()
     serializer_class=StudentCourseEnrollSerializer
-    # permission_classes=[permissions.IsAuthenticated]
 
 def fetch_enroll_status(request,student_id,course_id):
     student=models.Student.objects.filter(id=student_id).first()
@@ -150,7 +149,23 @@ class EnrolledStudentList(generics.ListAPIView):
     serializer_class=StudentCourseEnrollSerializer
 
     def get_queryset(self):
-        course_id=self.kwargs['course_id']
+        course_id=self.kwargs.get('course_id')
         course=models.Course.objects.get(pk=course_id)
         return models.StudentCourseEnrollment.objects.filter(course=course)
     
+class CourseRatingList(generics.ListCreateAPIView):
+    serializer_class=CourseRatingSerializer
+
+    def get_queryset(self):
+        course_id=self.kwargs['course_id']
+        course=models.Course.objects.get(pk=course_id)
+        return models.CourseRating.objects.filter(course=course)
+    
+def fetch_rating_status(request,student_id,course_id):
+    student=models.Student.objects.filter(id=student_id).first()
+    course=models.Course.objects.filter(id=course_id).first()
+    ratingStatus=models.CourseRating.objects.filter(course=course,student=student).count()
+    if ratingStatus:
+        return JsonResponse({'bool':True})
+    else:
+        return JsonResponse({'bool':False})

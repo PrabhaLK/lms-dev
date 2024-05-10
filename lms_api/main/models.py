@@ -19,6 +19,9 @@ class Teacher(models.Model):
     def skill_list(self):
         skill_list=self.skills.split(',')
         return skill_list
+    
+    def __str__(self):
+        return self.full_name
 
 #CourseCategory Model
 class CourseCategory(models.Model):
@@ -48,8 +51,12 @@ class Course(models.Model):
         tech_list=self.techs.split(',')
         return tech_list
     def total_enrolled_students(self):
-        total_enrolled_students=StudentCourseEnrollment.objects.filter(course=self).count()
+        total_enrolled_students=CourseRating.objects.filter(course=self).count()
         return total_enrolled_students
+    
+    def course_rating(self):
+        course_rating=CourseRating.objects.filter(course=self).aggregate(avg_rating=models.Avg('rating'))
+        return course_rating['avg_rating']
 
     def __str__(self):
         return self.title
@@ -64,6 +71,9 @@ class Chapter(models.Model):
     remarks=models.TextField(null=True)
     class Meta:
         verbose_name_plural="4. Chapters"
+
+    def __str__(self):
+        return self.title
 
 #Student Model
 class Student(models.Model):
@@ -89,6 +99,22 @@ class StudentCourseEnrollment(models.Model):
 
     def __str__(self):
         return f"{self.course}- {self.student}"
+    
+# Course Rating and Review
+class CourseRating(models.Model):
+    course= models.ForeignKey(Course,on_delete=models.CASCADE,null=True)
+    student= models.ForeignKey(Student,on_delete=models.CASCADE,null=True)
+    rating=models.PositiveBigIntegerField(default=0)
+    reviews=models.TextField(null=True)
+    review_time=models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural="7. Course Ratings"
+
+    def __str__(self):
+        return f"{self.course}- {self.student}- {self.rating}"
+
+
 
 
 
