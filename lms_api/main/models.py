@@ -9,9 +9,10 @@ class Teacher(models.Model):
     full_name=models.CharField(max_length=100)
     detail=models.TextField(null=True)
     email=models.CharField(max_length=100)
-    password=models.CharField(max_length=100)
+    password=models.CharField(max_length=100, blank=True, null=True)
     qualification=models.CharField(max_length=200)
     mobile_no=models.CharField(max_length=20)
+    profile_img=models.ImageField(upload_to='teacher_profile_imgs/', null=True)
     skills=models.TextField()
     class Meta:
         verbose_name_plural="1. Teachers"

@@ -27,7 +27,7 @@ function TeacherDetail() {
             <div className='row'>
                 <div className='col-4'>
                     {/* Course Image */}
-                    <img src="/java.jpeg" className="img-thumbnail" alt="teacher image" />
+                    <img src={teacherData.profile_img} className="img-thumbnail" alt="teacher image" />
                 </div>
                 <div className='col-8'>
                     <h3>{teacherData.full_name}</h3>

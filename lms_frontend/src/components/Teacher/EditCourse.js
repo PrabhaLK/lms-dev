@@ -72,7 +72,7 @@ function EditCourse() {
         if (courseData.f_img !== '') {
             _formdata.append('featured_img', courseData.f_img, courseData.f_img.name);
         }
-        _formdata.append('featured_img', courseData.f_img, courseData.f_img.name);
+        // _formdata.append('featured_img', courseData.f_img, courseData.f_img.name);
         _formdata.append('techs', courseData.techs);
         try {
             axios.put(baseUrl + '/teacher-course-detail/'+course_id, _formdata, {
@@ -127,7 +127,7 @@ function EditCourse() {
                                     <label for="video" className="form-label">Featured Image</label>
                                     <input type="file" onChange={handleFileChange} name='f_img' className="form-control" id="video" />
                                     {courseData.prev_img &&
-                                        <p className="mt-3"><img src={courseData.prev_img} width="300" /></p>
+                                        <p className="mt-3"><img src={courseData.prev_img} width="300" alt={'course image '+courseData.title} /></p>
                                     }
                                 </div>
                                 <div className="mb-3">
