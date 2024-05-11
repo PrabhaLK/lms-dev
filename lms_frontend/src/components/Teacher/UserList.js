@@ -38,6 +38,7 @@ function UserList() {
                                     <tr>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Enrolled Course</th>
                                         <th>interested Categories</th>
                                     </tr>
                                 </thead>
@@ -46,6 +47,7 @@ function UserList() {
                                     <tr>
                                         <td>{row.student.full_name}</td>
                                         <td>{row.student.email}</td>
+                                        <td>{row.course.title}</td>
                                         <td>
                                         {row.student.interested_categories}
                                         </td>
