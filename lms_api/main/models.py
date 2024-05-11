@@ -21,6 +21,21 @@ class Teacher(models.Model):
         skill_list=self.skills.split(',')
         return skill_list
     
+    #Total teacher Courses
+    def total_teacher_courses(self):
+        total_courses=Course.objects.filter(teacher=self).count()
+        return total_courses
+    
+    #Total teacher Chapters
+    def total_teacher_chapters(self):
+        total_chapters=Chapter.objects.filter(course__teacher=self).count()
+        return total_chapters
+    
+    #Total teacher Students
+    def total_teacher_students(self):
+        total_students=StudentCourseEnrollment.objects.filter(course__teacher=self).count()
+        return total_students
+    
     def __str__(self):
         return self.full_name
 
