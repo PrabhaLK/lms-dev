@@ -25,8 +25,9 @@ redirecting for the student-dashboard instead of user-dashboard after student lo
 
 in video 50 video_duration is renamed to chapter_duration
 
+#fixed Errors/ Faults
 
-views.py video 51 has been modified to see the url: course-rating/ instead of course-rating/<courseid>
+- Fixed - views.py video 51 has been modified to see the url: course-rating/ instead of course-rating/<courseid> 
 
 
 
