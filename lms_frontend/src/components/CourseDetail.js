@@ -15,6 +15,7 @@ function CourseDetail() {
     const [ratingStatus, setratingStatus] = useState();
     const [AvgRating, setAvgRating] = useState(0);
     const [techList, settechList] = useState([]);
+    const [favoritestatus, setfavoritestatus] = useState([]);
     let { course_id } = useParams();
     const studentId = localStorage.getItem('studentId');
     //Fetch courses when page load.
@@ -28,10 +29,10 @@ function CourseDetail() {
                     setteacherData(res.data.teacher);
                     settechList(res.data.tech_list);
                     setrelatedcourseData(JSON.parse(res.data.related_videos));
-                    if (res.data.course_rating !='' && res.data.course_rating != null ){
+                    if (res.data.course_rating != '' && res.data.course_rating != null) {
                         setAvgRating(res.data.course_rating);
                     }
-                    
+
                 });
         } catch (error) {
             console.log(error);
@@ -56,6 +57,21 @@ function CourseDetail() {
                     console.log(res);
                     if (res.data.bool == true) {
                         setratingStatus('success');
+                    }
+                });
+        } catch (error) {
+            console.log(error);
+        }
+        //fetch favourite status
+        try {
+            axios.get(baseUrl + '/fetch-favorite-status/' + studentId + '/' + course_id)
+                .then((res) => {
+                    console.log(res);
+                    if (res.data.bool == true) {
+                        setfavoritestatus('success');
+                    }
+                    else {
+                        setfavoritestatus('');
                     }
                 });
         } catch (error) {
@@ -100,6 +116,74 @@ function CourseDetail() {
         }
     }
 
+    // Mark As Favourite
+    const markAsFavourite = () => {
+        const _formdata = new FormData();
+        _formdata.append('course', course_id);
+        _formdata.append('student', studentId);
+        _formdata.append('status', true);
+
+        try {
+            axios.post(baseUrl + '/student-add-favourite-course/', _formdata, {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            }).then((res) => {
+                if (res.status === 200 || res.status === 201) {
+                    Swal.fire({
+                        title: 'The Course has added to your wishlist.',
+                        icon: "success",
+                        toast: true,
+                        timer: 5000,
+                        position: 'top-right',
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    });
+                    setfavoritestatus('success');
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    //End
+
+    //Remove From Favourites
+    const removeFavourite = (pk) => {
+        const _formdata = new FormData();
+        _formdata.append('course', course_id);
+        _formdata.append('student', studentId);
+        _formdata.append('status', false);
+
+        try {
+            axios.get(baseUrl + '/student-remove-favorite-course/' + course_id + '/' + studentId,{
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            }).then((res) => {
+                if (res.status === 200 || res.status === 201) {
+                    Swal.fire({
+                        title: 'The Course has been removed from your wishlist.',
+                        icon: "success",
+                        toast: true,
+                        timer: 5000,
+                        position: 'top-right',
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    });
+                    setfavoritestatus('');
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+
+
+    }
+    // end 
+
     // Add rating
     const [ratingData, setratingData] = useState({
         rating: '',
@@ -119,21 +203,21 @@ function CourseDetail() {
         _formRatingdata.append('rating', ratingData.rating);
         _formRatingdata.append('reviews', ratingData.reviews);
         try {
-            axios.post(baseUrl+'/course-rating/'+course_id,  _formRatingdata,)
+            axios.post(baseUrl + '/course-rating/' + course_id, _formRatingdata,)
                 .then((res) => {
-                    if(res.status===200||res.status===201){
+                    if (res.status === 200 || res.status === 201) {
                         Swal.fire({
                             title: 'Rating is submitted: Thanks for rating.',
-                            icon:"success",
-                            toast:true,
-                            timer:5000,
-                            position:'top-right',
-                            timerProgressBar:true,
-                            showConfirmButton:false
+                            icon: "success",
+                            toast: true,
+                            timer: 5000,
+                            position: 'top-right',
+                            timerProgressBar: true,
+                            showConfirmButton: false
                         });
-                        window.location.reload()  
+                        window.location.reload()
                     }
-                    
+
                 });
         } catch (error) {
             console.log(error);
@@ -164,14 +248,14 @@ function CourseDetail() {
                     <p><b>Total Enrolled:</b> {courseData.total_enrolled_students} Student(s)</p>
                     <p><b>Rating: </b>
                         {AvgRating}/5
-                        {enrollStatus === 'success' && userLoginStatus === 'success' && 
+                        {enrollStatus === 'success' && userLoginStatus === 'success' &&
                             <>
-                            {ratingStatus != 'success' &&
-                                <button className='btn btn-success btn-sm ms-3' data-bs-toggle="modal" data-bs-target="#ratingModal">Rate this course</button>
-                            }
-                            {ratingStatus == 'success' &&
-                            <button className='btn btn-secondary fw-bold btn-sm ms-3' disabled>Rating Submitted</button>
-                            }
+                                {ratingStatus != 'success' &&
+                                    <button className='btn btn-success btn-sm ms-3' data-bs-toggle="modal" data-bs-target="#ratingModal">Rate this course</button>
+                                }
+                                {ratingStatus == 'success' &&
+                                    <button className='btn btn-secondary fw-bold btn-sm ms-3' disabled>Rating Submitted</button>
+                                }
                                 {/* modal start  */}
                                 <div className="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div className="modal-dialog modal-lg">
@@ -184,7 +268,7 @@ function CourseDetail() {
                                                 <form>
                                                     <div class="mb-3">
                                                         <label for="exampleInputEmail1" class="form-label">Rating</label>
-                                                        <select onChange={handleChange} className='form-control'name='rating'>
+                                                        <select onChange={handleChange} className='form-control' name='rating'>
                                                             <option value='1'>1</option>
                                                             <option value='2'>2</option>
                                                             <option value='3'>3</option>
@@ -211,6 +295,12 @@ function CourseDetail() {
                     }
                     {userLoginStatus === 'success' && enrollStatus !== 'success' &&
                         <p><button onClick={enrollCourse} type='button' className='btn btn-success'>Enroll in this Course</button></p>
+                    }
+                    {userLoginStatus === 'success' && favoritestatus !== 'success' &&
+                        <p><button onClick={markAsFavourite} title='Add to favourite course list' type='button' className='btn  btn-outline-danger'><i class="bi bi-heart-fill"> Add to Favourites</i></button></p>
+                    }
+                    {userLoginStatus === 'success' && favoritestatus === 'success' &&
+                        <p><button onClick={removeFavourite} title='Remove from favourite course list' type='button' className='btn  btn-danger'><i class="bi bi-heart-fill"> Remove from Favourites</i></button></p>
                     }
                     {userLoginStatus !== 'success' &&
                         <p><Link to='/user-login' className='btn btn-warning'>Please login to enroll in this course</Link></p>

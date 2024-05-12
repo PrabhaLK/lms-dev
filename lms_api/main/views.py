@@ -7,7 +7,7 @@ from django.db.models import Q
 from rest_framework.response import Response
 from rest_framework import generics, permissions
 
-from .serializers import TeacherSerializer, CategorySerializer, CourseSerializer, ChapterSerializer,StudentSerializer,StudentCourseEnrollSerializer,CourseRatingSerializer,TeacherDashboardSerializer
+from .serializers import TeacherSerializer, CategorySerializer, CourseSerializer, ChapterSerializer,StudentSerializer,StudentCourseEnrollSerializer,CourseRatingSerializer,TeacherDashboardSerializer,StudentFavoriteCourseSerializer
 from . import models
 # Create your views here.
 
@@ -158,6 +158,28 @@ def fetch_enroll_status(request,student_id,course_id):
     course=models.Course.objects.filter(id=course_id).first()
     enrollStatus=models.StudentCourseEnrollment.objects.filter(course=course,student=student).count()
     if enrollStatus:
+        return JsonResponse({'bool':True})
+    else:
+        return JsonResponse({'bool':False})
+    
+class StudentFavoriteCourseList(generics.ListCreateAPIView):
+    queryset= models.StudentFavoriteCourse.objects.all()
+    serializer_class=StudentFavoriteCourseSerializer
+
+def fetch_favorite_status(request,student_id,course_id):
+    student=models.Student.objects.filter(id=student_id).first()
+    course=models.Course.objects.filter(id=course_id).first()
+    favoriteStatus=models.StudentFavoriteCourse.objects.filter(course=course,student=student).first()
+    if favoriteStatus and favoriteStatus.status == True:
+        return JsonResponse({'bool':True})
+    else:
+        return JsonResponse({'bool':False})
+
+def remove_favorite_course(request,course_id,student_id):
+    student=models.Student.objects.filter(id=student_id).first()
+    course=models.Course.objects.filter(id=course_id).first()
+    favoriteStatus=models.StudentFavoriteCourse.objects.filter(course=course,student=student).delete()
+    if favoriteStatus:
         return JsonResponse({'bool':True})
     else:
         return JsonResponse({'bool':False})

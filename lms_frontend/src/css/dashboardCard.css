@@ -49,6 +49,9 @@
 .progress div {
     background-color: red
 }
+.icon-color-red {
+    background-color: red
+}
 
 .text1 {
     font-size: 14px;
