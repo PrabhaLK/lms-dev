@@ -8,7 +8,7 @@ function UserList() {
     const[StudentData,setStudentData]=useState([]);
 
     const teacherId = localStorage.getItem('teacherId');
-    //Fetch courses when page loads.
+    //Fetch students when page loads.
     useEffect(() => {
         try {
             axios.get(baseUrl + '/fetch-all-enrolled-students/'+teacherId)

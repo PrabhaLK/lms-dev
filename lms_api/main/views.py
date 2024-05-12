@@ -158,10 +158,16 @@ class EnrolledStudentList(generics.ListAPIView):
             course_id=self.kwargs['course_id']
             course=models.Course.objects.get(pk=course_id)
             return models.StudentCourseEnrollment.objects.filter(course=course)
+        
         elif 'teacher_id' in self.kwargs:
             teacher_id=self.kwargs['teacher_id']
             teacher=models.Teacher.objects.get(pk=teacher_id)
             return models.StudentCourseEnrollment.objects.filter(course__teacher=teacher).distinct()
+        
+        elif 'student_id' in self.kwargs:
+            student_id=self.kwargs['student_id']
+            student=models.Student.objects.get(pk=student_id)
+            return models.StudentCourseEnrollment.objects.filter(student=student).distinct()
     
 class CourseRatingList(generics.ListCreateAPIView):
     queryset=models.CourseRating.objects.all()
