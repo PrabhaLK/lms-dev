@@ -142,6 +142,20 @@ class CourseRating(models.Model):
     def __str__(self):
         return f"{self.course}- {self.student}- {self.rating}"
 
+# Assignemnt for students
+class StudentAssignment(models.Model):
+    teacher= models.ForeignKey(Teacher,on_delete=models.CASCADE,null=True)
+    student= models.ForeignKey(Student,on_delete=models.CASCADE,null=True)
+    title=models.CharField(max_length=200)
+    detail=models.TextField(null=True)
+    add_time=models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural="9. Assignments"
+
+    def __str__(self):
+        return f" {self.student} - {self.title}"
+
 
 
 

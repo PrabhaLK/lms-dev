@@ -32,6 +32,7 @@ import EnrolledStudents from './Teacher/EnrolledStudents';
 import UserList from './Teacher/UserList';
 import TeacherProfileSetting from './Teacher/TeacherProfileSetting';
 import TeacherChangePassword from './Teacher/TeacherChangePassword';
+import AddAssignment from './Teacher/AddAssignment';
 
 
 //List Pages
@@ -76,12 +77,13 @@ function Main() {
                 <Route path='/teacher-profile-setting' element={<TeacherProfileSetting/>}/>
                 <Route path='/teacher-change-password' element={<TeacherChangePassword/>}/>
                 <Route path='/teacher-detail/:teacher_id' element={<TeacherDetail/>}/>
+                <Route path='/add-assignment/:teacher_id' element={<TeacherDetail/>}/>
 
                 <Route path='/all-courses/' element={<AllCourses/>}/>
                 <Route path='/popular-courses' element={<PopularCourses/>}/>
                 <Route path='/popular-teachers' element={<PopularTeachers/>}/>
                 <Route path='/category/:category_slug' element={<CategoryCourses/>}/>
-                <Route path='/teacher-skill-courses/:skill_name/:teacher_id' element={<TeacherSkillCourses/>}/>
+                <Route path='/add-assignment/:student_id/:teacher_id' element={<AddAssignment/>}/>
 
             </Switch>
             <Footer/>

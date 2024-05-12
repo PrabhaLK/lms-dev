@@ -40,6 +40,7 @@ function UserList() {
                                         <th>Email</th>
                                         <th>Enrolled Course</th>
                                         <th>interested Categories</th>
+                                        <th>Assignments</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,6 +51,10 @@ function UserList() {
                                         <td>{row.course.title}</td>
                                         <td>
                                         {row.student.interested_categories}
+                                        </td>
+                                        <td>
+                                            <Link to="#"className="  btn btn-sm btn-outline-primary me-3  mb-1 ms-3">Assignments</Link> 
+                                            <Link to={`/add-assignment/${row.student.id}/${teacherId}`}className=" btn btn-sm btn-outline-primary me-3  mb-1 ms-3"> Add Assignment</Link>
                                         </td>
                                     </tr>
                                 )}

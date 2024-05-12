@@ -29,5 +29,8 @@ in video 50 video_duration is renamed to chapter_duration
 
 - Fixed - views.py video 51 has been modified to see the url: course-rating/ instead of course-rating/<courseid> 
 
+to be changed if you have time : 
+assignment should be for course object and that should have to add the files to the assignments. 
+
 
 
