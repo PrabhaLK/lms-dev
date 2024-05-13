@@ -8,8 +8,10 @@ const baseUrl = 'http://127.0.0.1:8000/api';
 
 function AddAssignment() {
     const [assignmentData, setassignmentData] = useState({
+        
         title: '',
-        detail: ''
+        detail: '',
+        assignment_file:''
     });
 
 
@@ -20,12 +22,12 @@ function AddAssignment() {
         });
     }
 
-    // const handleFileChange = (event) => {
-    //     setassignmentData({
-    //         ...assignmentData,
-    //         [event.target.name]: event.target.files[0]
-    //     });
-    // }
+    const handleFileChange = (event) => {
+        setassignmentData({
+            ...assignmentData,
+            [event.target.name]: event.target.files[0]
+        });
+    }
     const { student_id } = useParams();
     const { teacher_id } = useParams();
 
@@ -34,6 +36,7 @@ function AddAssignment() {
         _formdata.append('teacher', teacher_id);
         _formdata.append('student', student_id);
         _formdata.append('detail', assignmentData.detail);
+        _formdata.append('assignment_file', assignmentData.assignment_file, assignmentData.assignment_file.name);
         _formdata.append('title', assignmentData.title);
         try {
             axios.post(baseUrl + '/student-assignment/' + teacher_id + '/' + student_id, _formdata, {
@@ -78,10 +81,10 @@ function AddAssignment() {
                                 <label for="detail" className="form-label">Detail</label>
                                 <textarea className="form-control" onChange={handleChange} name='detail' id="detail" />
                             </div>
-                            {/* <div className="mb-3">
-                                <label for="video" className="form-label">Video</label>
-                                <input type="file" onChange={handleFileChange} name='video' className="form-control" id="video" />
-                            </div> */}
+                            <div className="mb-3">
+                                <label for="assignment_file" className="form-label">Assignment file</label>
+                                <input type="file" onChange={handleFileChange} name='assignment_file' className="form-control" id="assignment_file" />
+                            </div>
                             <hr />
                             <button type="button" onClick={formSubmit} className="btn btn-primary">Submit</button>
                         </div>

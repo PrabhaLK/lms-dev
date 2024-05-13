@@ -112,8 +112,10 @@ class StudentAssignmentSerializer(serializers.ModelSerializer):
         fields=['id',
                 'teacher',
                 'student',
+                'course',
                 'title',
                 'detail',
+                'assignment_file',
                 'add_time',
                 ]
 
