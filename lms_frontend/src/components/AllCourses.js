@@ -10,7 +10,7 @@ function AllCourses() {
         try {
             axios.get(baseUrl + '/course/')
             .then((res) => {
-                // console.log(res.data);
+                console.log(res.data);
                 setCourseData(res.data);
             });
         } catch (error) {

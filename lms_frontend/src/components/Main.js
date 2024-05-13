@@ -16,6 +16,7 @@ import RecomendedCourses from './User/RecomendedCourses';
 import ProfileSetting from './User/ProfileSetting';
 import ChangePassword from './User/ChangePassword';
 import StudentLogout from './User/StudentLogout';
+import StudentAssignment from './User/StudentAssignment';
 
 //teacher
 import TeacherLogin from './Teacher/TeacherLogin';
@@ -62,6 +63,7 @@ function Main() {
                 <Route path='/profile-setting' element={<ProfileSetting/>}/>
                 <Route path='/change-password' element={<ChangePassword/>}/>
                 <Route path='/user-logout' element={<StudentLogout/>}/>
+                <Route path='/assignments/' element={<StudentAssignment/>}/>
 
                 <Route path='/teacher-login' element={<TeacherLogin/>}/>
                 <Route path='/teacher-logout' element={<TeacherLogout/>}/>
@@ -83,6 +85,7 @@ function Main() {
                 <Route path='/popular-courses' element={<PopularCourses/>}/>
                 <Route path='/popular-teachers' element={<PopularTeachers/>}/>
                 <Route path='/category/:category_slug' element={<CategoryCourses/>}/>
+                <Route path='/teacher-skill-courses/:skill_name/:teacher_id' element={<TeacherSkillCourses/>}/>
                 <Route path='/add-assignment/:student_id/:teacher_id' element={<AddAssignment/>}/>
                 <Route path='/show-assignment/:student_id/:teacher_id' element={<ShowAssignment/>}/>
 

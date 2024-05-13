@@ -6,6 +6,7 @@ function Sidebar() {
             <div className="list-group list group-flush">
                 <Link to="/user-dashboard" className="list-group-item list-group-item-action">Dashboard</Link>
                 <Link to="/my-courses" className="list-group-item list-group-item-action">My Courses</Link>
+                <Link to="/assignments" className="list-group-item list-group-item-action">My Assignments</Link>
                 <Link to="/favourite-courses" className="list-group-item list-group-item-action">Favourite Courses</Link>
                 <Link to="/recomended-courses" className="list-group-item list-group-item-action">Recomended Courses</Link>
                 <Link to="/profile-setting" className="list-group-item list-group-item-action">Profile Settings</Link>

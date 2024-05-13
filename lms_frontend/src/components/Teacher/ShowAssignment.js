@@ -71,9 +71,9 @@ function ShowAssignment() {
                                 <thead>
                                     <tr>
                                         <th>Course Name</th>
-                                        <th>Assignment Name</th>
-                                        <th>Assignment Detail</th>
-                                        <th>Assignment File</th>
+                                        <th>Coursework Name</th>
+                                        <th>Coursework Details</th>
+                                        <th>Attached File</th>
                                     </tr>
                                 </thead>
                                 <tbody>
