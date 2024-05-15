@@ -17,6 +17,7 @@ import ProfileSetting from './User/ProfileSetting';
 import ChangePassword from './User/ChangePassword';
 import StudentLogout from './User/StudentLogout';
 import StudentAssignment from './User/StudentAssignment';
+import UploadAssignment from './User/UploadAssignment';
 
 //teacher
 import TeacherLogin from './Teacher/TeacherLogin';
@@ -87,6 +88,7 @@ function Main() {
                 <Route path='/category/:category_slug' element={<CategoryCourses/>}/>
                 <Route path='/teacher-skill-courses/:skill_name/:teacher_id' element={<TeacherSkillCourses/>}/>
                 <Route path='/add-assignment/:student_id/:teacher_id' element={<AddAssignment/>}/>
+                <Route path='/upload-assignment/:student_id/:teacher_id' element={<UploadAssignment/>}/>
                 <Route path='/show-assignment/:student_id/:teacher_id' element={<ShowAssignment/>}/>
 
             </Switch>

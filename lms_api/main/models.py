@@ -147,9 +147,11 @@ class StudentAssignment(models.Model):
     teacher= models.ForeignKey(Teacher,on_delete=models.CASCADE,null=True)
     student= models.ForeignKey(Student,on_delete=models.CASCADE,null=True)
     course= models.ForeignKey(Course,on_delete=models.CASCADE,null=True)
-    title=models.CharField(max_length=200)
+    title=models.CharField(max_length=200, null=True)
     detail=models.TextField(null=True)
+    student_status=models.BooleanField(default=False, null=True)
     assignment_file=models.FileField(upload_to='assignemnt_files/', null=True)
+    uploaded_coursework=models.FileField(upload_to='coursework_files/', null=True)
     add_time=models.DateTimeField(auto_now_add=True)
 
     class Meta:

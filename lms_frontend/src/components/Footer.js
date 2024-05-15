@@ -1,15 +1,17 @@
+import React from 'react';
+import { MDBFooter, MDBContainer } from 'mdb-react-ui-kit';
 
-function Footer() {
-    return (
-        <footer className="text-muted py-5 border-top mt-5">
-            <div className="container">
-                <p className="float-end">
-                    <a href="#">Back to top</a>
-                </p>
-                <p className="text-center">LearnPro- Learning for everyone All right reserved Ⓒ 2024. </p>
-            </div>
-        </footer>
-    );
+export default function App() {
+  return (
+    <MDBFooter className='   mt-5 text-center text-white' style={{ backgroundColor: '#21081a' }}>
+      <MDBContainer className='p-4'></MDBContainer>
+
+      <div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
+        © 2024 Copyright:
+        <a className='text-white' href='/'>
+         LearnPro Coders
+        </a>
+      </div>
+    </MDBFooter>
+  );
 }
-
-export default Footer;

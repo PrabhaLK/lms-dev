@@ -33,7 +33,7 @@ urlpatterns = [
     path('fetch-enrolled-students/<int:course_id>', views.EnrolledStudentList.as_view()),
     path('fetch-enrolled-courses/<int:student_id>', views.EnrolledStudentList.as_view()),
     path('fetch-recomended-courses/<int:studentId>/', views.CourseList.as_view()),
-    path('course-rating/', views.CourseRatingList.as_view()), 
+    path('course-rating/<int:course_id>', views.CourseRatingList.as_view()), 
     path('fetch-rating-status/<int:student_id>/<int:course_id>', views.fetch_rating_status), 
     path('student-add-favourite-course/', views.StudentFavoriteCourseList.as_view()), 
     path('student-remove-favorite-course/<int:course_id>/<int:student_id>',views.remove_favorite_course ),
@@ -41,4 +41,5 @@ urlpatterns = [
     path('fetch-favorite-courses/<int:student_id>', views.StudentFavoriteCourseList.as_view()),
     path('student-assignment/<int:teacher_id>/<int:student_id>', views.AssignmentList.as_view()),
     path('my-assignment/<int:student_id>', views.MyAssignmentList.as_view()),
+    path('update-assignment/<int:pk>', views.UpdateAssignment.as_view()),
 ]

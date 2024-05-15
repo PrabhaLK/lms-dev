@@ -74,24 +74,35 @@ function ShowAssignment() {
                                         <th>Coursework Name</th>
                                         <th>Coursework Details</th>
                                         <th>Attached File</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {assignmentData.map((chapter, index) =>
+                                    {assignmentData.map((row, index) =>
                                         <tr>
-                                            <td><Link className="text-decoration-none link-dark " to={`/detail/${chapter.course.id}`}>{chapter.course.title}</Link></td>
-                                            <td>{chapter.title}</td>
+                                            <td><Link className="text-decoration-none link-dark " to={`/detail/${row.course.id}`}>{row.course.title}</Link></td>
+                                            <td>{row.title}</td>
                                            
-                                            <td>{chapter.detail}</td>
+                                            <td>{row.detail}</td>
                                             <td>
-                                                {chapter.assignment_file &&
-                                                   <Link className="text-decoration-none btn fw-bold btn-outline-secondary" to={chapter.assignment_file}><i class="bi bi-file-earmark-post"></i> Download The Assignment</Link>
+                                                {row.assignment_file &&
+                                                   <Link className="text-decoration-none btn fw-bold btn-outline-secondary" to={row.assignment_file}><i class="bi bi-file-earmark-post"></i> Download The Assignment</Link>
                                                 }
-                                                {!chapter.assignment_file &&
-                                                   <Link className="text-decoration-none btn fw-bold btn-outline-secondary" to={chapter.assignment_file}><i class="bi bi-file-earmark-post"></i> No Assignment File</Link>
+                                                {!row.assignment_file &&
+                                                   <Link className="text-decoration-none btn fw-bold btn-outline-secondary" to={row.assignment_file}><i class="bi bi-file-earmark-post"></i> No Assignment File</Link>
                                                 }
                                                 
                                             </td>
+                                            <td>
+                                                {row.uploaded_coursework && row.student_status == true &&
+                                                   <Link className="text-decoration-none btn fw-bold btn-outline-secondary" to={row.uploaded_coursework}><i class="bi bi-file-earmark-post"></i> Download The Assignment</Link>
+                                                }
+                                                {!row.uploaded_coursework && row.student_status != true &&
+                                                   <Link className="text-decoration-none btn fw-bold btn-outline-secondary" disabled><i class="bi bi-file-earmark-post"></i> Still Not Completed</Link>
+                                                }
+                                                
+                                            </td>
+                                            
                                         </tr>
                                     )}
                                 </tbody>

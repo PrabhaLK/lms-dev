@@ -32,5 +32,8 @@ in video 50 video_duration is renamed to chapter_duration
 to be changed if you have time : 
 assignment should be for course object and that should have to add the files to the assignments. 
 
+to be continued. upload assignments for students.  vbideo number 64
+
+
 
 
