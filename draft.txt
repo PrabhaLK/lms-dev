@@ -10,6 +10,15 @@ winenv acitivation script
 cd Scripts 
 activate
 
+D:
+cd D:\Prabha's Stuffs\Progamming\WEB\LMS and Exam Management System\bkcup backend project\lms-dev\winenv
+cd Scripts 
+activate
+cd ..
+cd .. 
+cd lms-dev
+python manage.py runserver
+
 
 
 hello. 

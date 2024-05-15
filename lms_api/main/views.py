@@ -7,7 +7,7 @@ from django.db.models import Q
 from rest_framework.response import Response
 from rest_framework import generics, permissions
 
-from .serializers import TeacherSerializer, CategorySerializer, CourseSerializer, ChapterSerializer,StudentSerializer,StudentCourseEnrollSerializer,CourseRatingSerializer,TeacherDashboardSerializer,StudentFavoriteCourseSerializer,StudentAssignmentSerializer
+from .serializers import TeacherSerializer, CategorySerializer, CourseSerializer, ChapterSerializer,StudentSerializer,StudentCourseEnrollSerializer,CourseRatingSerializer,TeacherDashboardSerializer,StudentFavoriteCourseSerializer,StudentAssignmentSerializer,StudentDashboardSerializer
 from . import models
 # Create your views here.
 
@@ -135,6 +135,11 @@ class ChapterDetailView(generics.RetrieveUpdateDestroyAPIView):
 class StudentList(generics.ListCreateAPIView):
     queryset= models.Student.objects.all()
     serializer_class=StudentSerializer
+
+class StudentDashboard(generics.RetrieveAPIView):
+    queryset= models.Student.objects.all()
+    serializer_class=StudentDashboardSerializer
+
 
 @csrf_exempt
 def student_login(request):

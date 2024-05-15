@@ -26,7 +26,7 @@ function Login() {
                     if (res.data.bool === true) {
                         localStorage.setItem('studentLoginStatus', true);
                         localStorage.setItem('studentId', res.data.student_id);
-                        window.location.href = '/student-dashboard';
+                        window.location.href = '/user-dashboard';
                     } else {
                         seterrorMsg('Invalid Email or password');
                     }
