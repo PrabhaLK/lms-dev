@@ -136,6 +136,11 @@ class StudentList(generics.ListCreateAPIView):
     queryset= models.Student.objects.all()
     serializer_class=StudentSerializer
 
+
+class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset= models.Student.objects.all()
+    serializer_class=StudentSerializer
+
 class StudentDashboard(generics.RetrieveAPIView):
     queryset= models.Student.objects.all()
     serializer_class=StudentDashboardSerializer

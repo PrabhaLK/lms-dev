@@ -96,8 +96,9 @@ class Student(models.Model):
     full_name=models.CharField(max_length=100)
     email=models.CharField(max_length=100)
     password=models.CharField(max_length=100)
-    username=models.CharField(max_length=200)
+    username=models.CharField(max_length=200, null=True)
     interested_categories=models.TextField()
+    profile_img=models.ImageField(upload_to='student_profile_imgs/', null=True)
 
     def enrolled_courses(self):
         enrolled_courses=StudentCourseEnrollment.objects.filter(student=self).count()
