@@ -76,13 +76,17 @@ function ProfileSetting() {
                 if (response.status === 200) {
                     Swal.fire({
                         title: 'Confirm',
-                        text: 'data has been updated',
+                        titleText: 'data has been updated',
+                        text: 'you will be signed out.',
                         icon: 'success',
                         timer: 2000,
                         position: 'Top right',
                         timerProgressBar: true,
                         showConfirmButton: false
                     });
+                    setTimeout(() => {
+                        window.location.href='/user-logout'
+                    }, 3000)
                 }
             });
         } catch (error) {

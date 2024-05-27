@@ -18,6 +18,7 @@ import ChangePassword from './User/ChangePassword';
 import StudentLogout from './User/StudentLogout';
 import StudentAssignment from './User/StudentAssignment';
 import UploadAssignment from './User/UploadAssignment';
+import Logout from './User/Logout';
 
 //teacher
 import TeacherLogin from './Teacher/TeacherLogin';
@@ -56,6 +57,7 @@ function Main() {
                 <Route path='/about' element={<About/>}/>
                 <Route path='/detail/:course_id' element={<CourseDetail/>}/>
                 <Route path='/user-login' element={<Login/>}/>
+                <Route path='/user-logout' element={<Logout/>}/>
                 <Route path='/user-register' element={<Register/>}/>
                 <Route path='/user-dashboard' element={<Dashboard/>}/>
                 <Route path='/my-courses' element={<MyCourses/>}/>
